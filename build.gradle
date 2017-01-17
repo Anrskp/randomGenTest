@@ -1,40 +1,128 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.0.BUILD-SNAPSHOT'
-	}
 	repositories {
-		mavenCentral()
-		maven { url "https://repo.spring.io/snapshot" }
-		maven { url "https://repo.spring.io/milestone" }
+		maven { url "${artifactory_contextUrl}" + "/integration" }
 	}
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath group: 'dk.danskespil.gradle.plugins', name: 'ds-gradle-plugin-lifecycle', version: '1.0.1'
+		classpath group: 'dk.danskespil.gradle.plugins', name: 'ds-gradle-plugin-docker', version: '3.0.3-SNAPSHOT'
+		classpath "com.avast.gradle:docker-compose-gradle-plugin:DEVELOPER-SNAPSHOT"
+		classpath(group: 'dk.danskespil.gradle.plugins', name: 'ds-gradle-plugin-git', version: '0.0.1')
+	}
+}
+
+plugins {
+	id 'org.ajoberstar.grgit' version '1.5.1'
+	id 'org.ajoberstar.release-opinion' version '1.5.1'
+}
+
+// This block HAS to be first due to the order of configuration, execution.
+// The settings in the release {...} are not applied if its not first.
+// This causes versions like this 2.2.34-dev.50.uncommitted+5ff61b5
+// which fails the build (they are not valid docker versions)
+apply plugin: 'maven'
+import org.ajoberstar.gradle.git.release.opinion.Strategies
+
+release {
+	grgit = org.ajoberstar.grgit.Grgit.open()
+	defaultVersionStrategy = Strategies.SNAPSHOT
+	versionStrategy Strategies.SNAPSHOT
+	tagStrategy {
+		prefixNameWithV = false // defaults to true
+		generateMessage = { version -> "My new version $version.version" }
 	}
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-
-
-jar {
-	baseName = 'dsrngchecker'
-	version = '0.0.1-SNAPSHOT'
-}
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+apply plugin: 'groovy'
+apply from: "${rootDir}/gradle/integrationtest.gradle"
 
 repositories {
+	maven { url "${artifactory_contextUrl}" + "/integration" }
 	mavenCentral()
-	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
 
 
+apply from: "${rootDir}/gradle/compose.gradle"
+
+subprojects {
+
+	repositories {
+		maven {
+			url "${artifactory_contextUrl}/integration"
+		}
+	}
+
+	apply plugin: 'dk.danskespil.gradle.plugins.docker'
+	apply plugin: 'dk.danskespil.gradle.plugins.lifecycle'
+
+	docker {
+		if (null == System.getenv("DOCKER_HOST")){
+			url = 'tcp://localhost:2375'
+		}else{
+			url = System.getenv("DOCKER_HOST")
+			certPath = new File(System.getenv("DOCKER_CERT_PATH"))
+		}
+	}
+}
+
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	runtime('com.microsoft.sqlserver:mssql-jdbc')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-	compileOnly "org.projectlombok:lombok:1.16.12"
+	compile gradleApi()
+	compile localGroovy()
+	integrationTestCompile(
+			// Spock test framework
+			'junit:junit:4.12',
+			'org.codehaus.groovy:groovy-all:2.4.7',
+			'org.spockframework:spock-core:1.0-groovy-2.4',
+			// Other
+			'dk.danskespil:ds-test-helpers:0.1.0'
+	)
+}
+
+assemble.dependsOn project(':rngCheck').tasks.assemble
+
+integrationTest.dependsOn("composeUp")
+integrationTest.finalizedBy("composeDown")
+
+task showVersion << {
+	println "${project.version}"
+}
+
+task dockerHostIsConfigured << {
+	if (!System.getenv("DOCKER_HOST")?.contains("test1.vcc.dsservice.eu")) {
+		throw new GradleException("You can not deploy if you do not have DOCKER_HOST set to pcc.test1.vcc.dsservice.eu or scc.test1.vcc.dsservice.eu")
+	}
+}
+
+task composeUpIsConfigured << {
+	if (project.hasProperty('composeEnvironment') && project.getProperties().get('composeEnvironment') == "cloud") {
+		logger.info("copmposeEnvironment set. Ready to deploy")
+	} else {
+		throw new GradleException(String.format("You can not deploy if you do not have '-PcomposeEnvironment=cloud' set on your commandline. Try%n./gradlew deployToTest1 -PcomposeEnvironment=cloud"))
+	}
+}
+
+task composeUpWhenDeploying {
+	dependsOn composeDown
+	finalizedBy composeUp
+}
+
+task deployToTest1 {
+	dependsOn dockerHostIsConfigured, composeUpIsConfigured
+	finalizedBy composeUpWhenDeploying
+}
+
+// Add tags to git when you deploy to cloud
+apply plugin: 'dk.danskespil.gradle.plugins.git'
+gitAudit.strictAudit(deployToTest1)
+
+// deploy task should only be execute by Jenkins
+task deploy(type:Exec) {
+	workingDir 'bin/'
+	if(project.hasProperty("imageVersion"))
+	{
+		commandLine "./deploy.sh","${project.getProperties().get('serviceName')}","${project.getProperties().get('imageVersion')}"
+	}
+	else{
+		commandLine "./deploy.sh","${project.getProperties().get('serviceName')}","${project.version}"
+	}
 }

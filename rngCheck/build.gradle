@@ -1,0 +1,72 @@
+buildscript {
+    repositories {
+        maven { url "http://artifactory.dsservice.eu/artifactory/integration" }
+        maven { url "http://repo.spring.io/libs-milestone" }
+        maven { url "https://plugins.gradle.org/m2/" }
+        mavenCentral()
+    }
+    dependencies {
+        classpath("dk.danskespil.gradle.plugins:ds-gradle-plugin-parent:2.0.0")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE")
+    }
+}
+
+plugins {
+}
+
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'jar'
+apply plugin: 'maven'
+apply plugin: 'spring-boot'
+apply plugin: 'ds-gradle-plugin-parent'
+apply plugin: 'org.sonarqube'
+apply plugin: "jacoco"
+apply from: "${projectDir}/gradle/sonar.gradle"
+
+
+
+jar {
+    baseName = 'dsrngchecker'
+    version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+task copyLatestJarToDockerfileDir(type: Copy) {
+    dependsOn bootRepackage
+    from 'src/main/resources/'
+    into 'src/main/docker/dockerfile/'
+
+    from jar
+    into 'src/main/docker/dockerfile/'
+    rename {String fileName ->
+        project.name + '.jar'
+    }
+
+}
+
+task cleanupAfterCopyLatestJarToDockerfileDir(type: Delete) {
+    delete 'src/main/docker/dockerfile/' + project.name + '.jar'
+}
+
+clean.dependsOn cleanupAfterCopyLatestJarToDockerfileDir
+
+tasks.buildImage.dependsOn copyLatestJarToDockerfileDir
+
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    runtime('com.microsoft.sqlserver:mssql-jdbc')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compileOnly "org.projectlombok:lombok:1.16.12"
+}

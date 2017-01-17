@@ -1,16 +1,8 @@
 package com.anders.cphbusiness;
 
 import com.anders.cphbusiness.controller.randomTestController;
-import com.anders.cphbusiness.repositories.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.annotation.Async;
-import com.anders.cphbusiness.entitiesModel.*;
-
-import java.util.ArrayList;
 
 @SpringBootApplication
 
@@ -19,13 +11,8 @@ public class DsRngCheckerApplication {
     // FIELDS
     private static randomTestController RTC = new randomTestController();
 
-    @Autowired
-    private static wagerBoardMarksRepo repo;
-
     public static void main(String[] args) {
         SpringApplication.run(DsRngCheckerApplication.class, args);
-
-        //System.out.println(repo.findAll());
     }
 
 /*
