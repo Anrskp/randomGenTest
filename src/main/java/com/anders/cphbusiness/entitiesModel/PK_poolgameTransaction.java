@@ -1,4 +1,4 @@
-package com.anders.cphbusiness.model;
+package com.anders.cphbusiness.entitiesModel;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,7 +1,7 @@
 package com.anders.cphbusiness;
 
 import com.anders.cphbusiness.controller.randomTestController;
-import com.anders.cphbusiness.testForRandomess.runsTest;
+import com.anders.cphbusiness.testModel.runsTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,9 +53,9 @@ public class runsTester {
             testArray.add((int) testString.charAt(i) - '0'); // - '0' to convert unicode to western digits
         }
 
-        assertThat(rt.runsTest(testArray).isTestConclusion()).isEqualTo(true);
-        assertThat(rt.runsTest(testArray).getU()).isEqualTo(48.073685f);
-        assertThat(rt.runsTest(testArray).getO()).isEqualTo(4.803431908034695);
-        assertThat(rt.runsTest(testArray).getZ()).isEqualTo(-0.43170898059659435);
+        assertThat(rt.runsTester(testArray).isTestConclusion()).isEqualTo(true);
+        assertThat(rt.runsTester(testArray).getU()).isEqualTo(48.073685f);
+        assertThat(rt.runsTester(testArray).getO()).isEqualTo(4.803431908034695);
+        assertThat(rt.runsTester(testArray).getZ()).isEqualTo(-0.43170898059659435);
     }
 }

@@ -1,4 +1,4 @@
-package com.anders.cphbusiness.testForRandomess;
+package com.anders.cphbusiness.testModel;
 
 import com.anders.cphbusiness.numbersModel.runsTestResult;
 import lombok.Getter;
@@ -20,7 +20,7 @@ public class runsTest {
     }
 
     // METHODS
-    public runsTestResult runsTest(ArrayList<Integer> numbers) {
+    public runsTestResult runsTester(ArrayList<Integer> numbers) {
 
         ArrayList<Integer> sortedNumbers = new ArrayList<>(numbers);
         ArrayList<Character> sortedRuns = new ArrayList<>();
@@ -37,7 +37,7 @@ public class runsTest {
         }
 
 
-        /* TEST ~ from example.
+        /* TEST ~ from example. **************************************
 
         ArrayList<Character> testRunsArray = new ArrayList<>();
 
@@ -48,7 +48,8 @@ public class runsTest {
         }
 
         sortedRuns = testRunsArray;
-        */
+
+        *************************************************************/
 
         // sort into runs
         for (Integer number : numbers) {
@@ -81,6 +82,7 @@ public class runsTest {
         int nONE;
         int nTWO;
 
+        // divide into A's and B's (bove and below the median)
         // first value encountered = n1
         if (sortedRuns.get(0) == 'A') {
             nONE = Collections.frequency(sortedRuns, 'A');

@@ -1,4 +1,4 @@
-package com.anders.cphbusiness.model;
+package com.anders.cphbusiness.entitiesModel;
 
 import lombok.Getter;
 import lombok.Setter;

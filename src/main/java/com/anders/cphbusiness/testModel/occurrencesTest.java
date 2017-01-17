@@ -1,4 +1,4 @@
-package com.anders.cphbusiness.testForRandomess;
+package com.anders.cphbusiness.testModel;
 
 import com.anders.cphbusiness.numbersModel.numbersInfo;
 
@@ -38,7 +38,6 @@ public class occurrencesTest {
         }
 
         average = sumOfOccurrences / numbersInfoList.size();
-
 
         // sort by occurrences
         numbersInfoList.sort((number1, number2) -> {

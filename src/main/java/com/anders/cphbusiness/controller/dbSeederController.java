@@ -1,9 +1,9 @@
 package com.anders.cphbusiness.controller;
 
-import com.anders.cphbusiness.model.entData;
-import com.anders.cphbusiness.model.poolgameTransaction;
-import com.anders.cphbusiness.model.wagerBoard;
-import com.anders.cphbusiness.model.wagerBoardMarks;
+import com.anders.cphbusiness.entitiesModel.entData;
+import com.anders.cphbusiness.entitiesModel.poolgameTransaction;
+import com.anders.cphbusiness.entitiesModel.wagerBoard;
+import com.anders.cphbusiness.entitiesModel.wagerBoardMarks;
 
 import java.util.*;
 
@@ -28,14 +28,6 @@ public class dbSeederController {
         }
 
         return rn;
-    }
-
-    private static char getRandomChar() {
-        return (char) (randomNumber.nextInt(26) + 'a');
-    }
-
-    private static String getRandomString() {
-        return "";
     }
 
     private static Date getDate() {
@@ -88,7 +80,7 @@ public class dbSeederController {
                     // meta_sequenceID;
                     // WagerIdentification;
                     int MarkSequenceNumber = l + 1;
-                    int MarkNumber = getRandomNumber(); // add to current "mark numbers on board" list to make sure no repeats
+                    int MarkNumber = getRandomNumber();
                     //GameIdentification;
                     //BoardNumber;
                     //meta_CreatedDate;
