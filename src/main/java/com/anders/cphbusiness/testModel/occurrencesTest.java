@@ -8,6 +8,7 @@ import java.util.Collections;
 public class occurrencesTest {
 
     //FIELDS
+    private boolean testAccepted = true;
     private ArrayList<numbersInfo> numbersInfoList = new ArrayList<>();
 
     // CONSTRUCTOR
@@ -15,7 +16,7 @@ public class occurrencesTest {
     }
 
     //METHODS
-    public ArrayList<numbersInfo> occurrencesTester(ArrayList<Integer> rngNumbers) {
+    public boolean occurrencesTester(ArrayList<Integer> rngNumbers) {
         Collections.sort(rngNumbers);
 
         // find occurrences of each number
@@ -48,12 +49,24 @@ public class occurrencesTest {
             return 0;
         });
 
-        // find high/lowest occurrences
-        System.out.println("average occurrences : " + average);
-        System.out.println("higest occurrences  : " + numbersInfoList.get(numbersInfoList.size() - 1));
-        System.out.println("lowest occurrences  : " + numbersInfoList.get(0));
+        for (numbersInfo numbersInfo : numbersInfoList) {
+            int number = numbersInfo.getNumber();
+            int occurrenceValue = numbersInfo.getOccurrences();
 
-        return numbersInfoList;
+            float res = (float) (occurrenceValue - average) / (average) * 100;
+            numbersInfo.setPercentagesFromAverage(res);
+
+            if (res > 200) {
+                testAccepted = false;
+            }
+
+            System.out.println("number: " + number + " repeats: " + occurrenceValue + " percent above/under average: " + res);
+        }
+
+
+        return testAccepted;
     }
 
 }
+
+

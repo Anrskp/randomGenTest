@@ -82,8 +82,8 @@ public class runsTest {
         int nONE;
         int nTWO;
 
-        // divide into A's and B's (bove and below the median)
-        // first value encountered = n1
+        // divide into A's and B's ((A)bove and (B)elow the median. Values equal to the median is omitted)
+        // first value encountered equals n1
         if (sortedRuns.get(0) == 'A') {
             nONE = Collections.frequency(sortedRuns, 'A');
             nTWO = Collections.frequency(sortedRuns, 'B');
@@ -99,11 +99,9 @@ public class runsTest {
         o = Math.sqrt(((2d * nONE * nTWO) * (2d * nONE * nTWO - nONE - nTWO)) / (Math.pow(nONE + nTWO, 2d) * (nONE + nTWO - 1d)));
         z = (runsAmount - u) / o;
 
-
         System.out.println(u);
         System.out.println(o);
         System.out.println(z);
-
 
         // conclusion from rejection region ( a = .05, rejection region = a / 2 = 0.025 = -1.96 ~ 1.96 )
         if (z > -1.96 && z < 1.96) {

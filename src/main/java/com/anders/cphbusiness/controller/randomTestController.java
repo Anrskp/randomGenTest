@@ -22,7 +22,7 @@ public class randomTestController {
         return rt.runsTester(rngNumbers);
     }
 
-    public List<numbersInfo> occurrencesTest(ArrayList<Integer> rngNumbers) {
+    public boolean occurrencesTest(ArrayList<Integer> rngNumbers) {
         return ot.occurrencesTester(rngNumbers);
     }
 
