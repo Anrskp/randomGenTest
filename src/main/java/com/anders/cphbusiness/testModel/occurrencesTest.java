@@ -56,13 +56,28 @@ public class occurrencesTest {
             float res = (float) (occurrenceValue - average) / (average) * 100;
             numbersInfo.setPercentagesFromAverage(res);
 
-            if (res > 200) {
+            if (res > 200 || res < -200) {
                 testAccepted = false;
             }
 
             System.out.println("number: " + number + " repeats: " + occurrenceValue + " percent above/under average: " + res);
         }
 
+        System.out.println("");
+
+        System.out.println(" ** highest value detected **");
+        System.out.println("number : " + numbersInfoList.get(numbersInfoList.size() - 1).getNumber());
+        System.out.println("occurrences : " + numbersInfoList.get(numbersInfoList.size() - 1).getOccurrences());
+        System.out.println("percent from average : " + numbersInfoList.get(numbersInfoList.size() - 1).getPercentagesFromAverage() + "%");
+
+        System.out.println("");
+
+        System.out.println(" ** lowest value detected **");
+        System.out.println("number : " + numbersInfoList.get(0).getNumber());
+        System.out.println("occurrences : " + numbersInfoList.get(0).getOccurrences());
+        System.out.println("percent from average : " + numbersInfoList.get(0).getPercentagesFromAverage() + "%");
+
+        System.out.println("");
 
         return testAccepted;
     }

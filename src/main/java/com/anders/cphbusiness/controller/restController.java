@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.anders.cphbusiness.entitiesModel.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 @RestController
 public class restController {
@@ -23,67 +22,21 @@ public class restController {
 
     // METHODS
     @RequestMapping("/rngCheck")
-    public String testFeedback() {
+    public boolean testFeedback() {
 
         ArrayList<Integer> randomNumbers = new ArrayList<>();
+        ArrayList<wagerBoardMarks> seq = new ArrayList<>();
 
         for (wagerBoardMarks wagerBoardMarks : repo.findAll()) {
+            seq.add(wagerBoardMarks);
             randomNumbers.add(wagerBoardMarks.getMarkNumber());
         }
 
         boolean runsTestRes = testCtrl.runsTest(randomNumbers).isTestConclusion();
         boolean occurrencesTestRes = (testCtrl.occurrencesTest(randomNumbers));
+        boolean boardSeqTestRes = testCtrl.boardSeqTest(seq);
 
-        return "" + runsTestRes + " " + occurrencesTestRes;
-    }
+        return runsTestRes && occurrencesTestRes && boardSeqTestRes;
 
-    // frequency test of board sequence
-    @RequestMapping("/test")
-    public boolean test() {
-
-        ArrayList<wagerBoardMarks> seq = new ArrayList<>();
-        boolean noDups = true;
-
-        for (wagerBoardMarks wagerBoardMarks : repo.findAll()) {
-            seq.add(wagerBoardMarks);
-        }
-
-        // sort by wager identification
-        seq.sort((number1, number2) -> {
-            if (Integer.parseInt(number1.getWagerIdentification()) > Integer.parseInt(number2.getWagerIdentification()))
-                return 1;
-            if (Integer.parseInt(number1.getWagerIdentification()) < Integer.parseInt(number2.getWagerIdentification()))
-                return -1;
-            return 0;
-        });
-
-        ArrayList<String> allSeqs = new ArrayList<>();
-        StringBuilder sb = new StringBuilder();
-
-        for (wagerBoardMarks aSeq : seq) {
-
-            sb.append(aSeq.getMarkNumber()).append(" ");
-
-            if (aSeq.getMarkSequenceNumber() == 7) {
-                String test = sb.toString();
-                allSeqs.add(test);
-
-                // reset stringBuilder
-                sb.setLength(0);
-            }
-        }
-
-        // check for duplicates in board sequences
-        for (String number : allSeqs) {
-            //System.out.println(number);
-            int frequency = Collections.frequency(allSeqs, number);
-
-            if (frequency > 1) {
-                noDups = false;
-                System.out.println(number + " is repeat " + frequency + " times");
-            } else noDups = true;
-        }
-
-        return noDups;
     }
 }
