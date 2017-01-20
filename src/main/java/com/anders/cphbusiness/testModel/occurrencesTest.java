@@ -60,7 +60,7 @@ public class occurrencesTest {
                 testAccepted = false;
             }
 
-            System.out.println("number: " + number + " repeats: " + occurrenceValue + " percent above/under average: " + res);
+            // System.out.println("number: " + number + " repeats: " + occurrenceValue + " percent above/under average: " + res);
         }
 
         System.out.println("");

@@ -37,7 +37,7 @@ public class runsTest {
         }
 
 
-        /* TEST ~ from example. **************************************
+        /* TEST ~  taken from example. **************************************
 
         ArrayList<Character> testRunsArray = new ArrayList<>();
 
@@ -49,7 +49,7 @@ public class runsTest {
 
         sortedRuns = testRunsArray;
 
-        *************************************************************/
+        *********************************************************************/
 
         // sort into runs
         for (Integer number : numbers) {
@@ -62,8 +62,6 @@ public class runsTest {
             }
         }
 
-        System.out.println(median);
-
         // count amount of runs
         int runsAmount = 1;
 
@@ -74,9 +72,6 @@ public class runsTest {
                 temp = ch;
             }
         }
-
-        System.out.println(sortedRuns);
-        System.out.println(runsAmount);
 
         // find N1, N2 amounts
         int nONE;
@@ -92,16 +87,16 @@ public class runsTest {
             nTWO = Collections.frequency(sortedRuns, 'A');
         }
 
-        System.out.println("n1 = " + nONE + " n2 = " + nTWO + " amount of runs : " + runsAmount);
+        // System.out.println("n1 = " + nONE + " n2 = " + nTWO + " amount of runs : " + runsAmount);
 
         // calculate U, O and then Z for 'runs test' formula
         u = ((2f * nONE * nTWO) / (nONE + nTWO)) + 1f;
         o = Math.sqrt(((2d * nONE * nTWO) * (2d * nONE * nTWO - nONE - nTWO)) / (Math.pow(nONE + nTWO, 2d) * (nONE + nTWO - 1d)));
         z = (runsAmount - u) / o;
 
-        System.out.println(u);
-        System.out.println(o);
-        System.out.println(z);
+        // System.out.println("u : " + u);
+        // System.out.println("o : " + o);
+        // System.out.println("z : " + z);
 
         // conclusion from rejection region ( a = .05, rejection region = a / 2 = 0.025 = -1.96 ~ 1.96 )
         if (z > -1.96 && z < 1.96) {
