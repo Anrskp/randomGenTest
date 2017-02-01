@@ -15,7 +15,7 @@ public class boardSequenceTest {
 
     //METHODS
     public boolean checkBoardDups(ArrayList<wagerBoardMarks> seq) {
-        boolean noDups = false;
+        boolean noDups = true;
 
         // sort by wager identification
         seq.sort((number1, number2) -> {
@@ -42,6 +42,8 @@ public class boardSequenceTest {
             }
         }
 
+        //System.out.println(allSeqs);
+
         // check for duplicates in board sequences
         for (String number : allSeqs) {
             //System.out.println(number);
@@ -50,7 +52,7 @@ public class boardSequenceTest {
             if (frequency > 1) {
                 noDups = false;
                 System.out.println(number + " is repeat " + frequency + " times");
-            } else noDups = true;
+            }
         }
         return noDups;
     }

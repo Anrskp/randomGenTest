@@ -60,6 +60,7 @@ public class dbSeederController {
                     String GameIdentification = "011-000000034"; // KEY  ~ id-code for 'lynlotto'
                     String TransactionIdentification = "test" + getRandomNumber() + getRandomNumber() + getRandomNumber() + getRandomNumber();
                     Date meta_CreatedDate = new Date(getRandomNumber() + getRandomNumber() + getRandomNumber()); // KEY ~ dosen't create entities that share this value?
+                    //Date meta_CreatedDate = new Date();
                     Date meta_FromDate = getDate();
                     Date meta_ToDate = getDate();
                     Date meta_InsertedDate = getDate();

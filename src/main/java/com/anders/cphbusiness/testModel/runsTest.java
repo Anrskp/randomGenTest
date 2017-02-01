@@ -36,21 +36,6 @@ public class runsTest {
             median = (sortedNumbers.get(sortedNumbers.size() - 1) / 2) + 1f;
         }
 
-
-        /* TEST ~  taken from example. **************************************
-
-        ArrayList<Character> testRunsArray = new ArrayList<>();
-
-        String runsTesterSuccess = "AAABAABABBAABBBAAAABBABBAAABBBAAAABBAABBBABBAABBBBBAAABABBAAABAAAABBBABBAAABAABBABAABBBABBAAAABBBAAA";
-
-        for (int i = 0; i < runsTesterSuccess.length(); i++) {
-            testRunsArray.add(runsTesterSuccess.charAt(i));
-        }
-
-        sortedRuns = testRunsArray;
-
-        *********************************************************************/
-
         // sort into runs
         for (Integer number : numbers) {
 
@@ -77,7 +62,7 @@ public class runsTest {
         int nONE;
         int nTWO;
 
-        // divide into A's and B's ((A)bove and (B)elow the median. Values equal to the median is omitted)
+        // divide set into A's and B's ((A)bove and (B)elow the median) - Values equal to the median is omitted
         // first value encountered equals n1
         if (sortedRuns.get(0) == 'A') {
             nONE = Collections.frequency(sortedRuns, 'A');
@@ -92,18 +77,17 @@ public class runsTest {
         // calculate U, O and then Z for 'runs test' formula
         u = ((2f * nONE * nTWO) / (nONE + nTWO)) + 1f;
         o = Math.sqrt(((2d * nONE * nTWO) * (2d * nONE * nTWO - nONE - nTWO)) / (Math.pow(nONE + nTWO, 2d) * (nONE + nTWO - 1d)));
+
         z = (runsAmount - u) / o;
 
-        // System.out.println("u : " + u);
-        // System.out.println("o : " + o);
-        // System.out.println("z : " + z);
+        System.out.println("z value : " + z);
 
         // conclusion from rejection region ( a = .05, rejection region = a / 2 = 0.025 = -1.96 ~ 1.96 )
         if (z > -1.96 && z < 1.96) {
-            System.out.println("Runs test can't reject that the stream of numbers is random");
+            System.out.println("Success - Runs test can't reject that the stream of numbers is random");
             return new runsTestResult(median, u, z, o, true);
         } else {
-            System.out.println("Runs test can reject that the stream of numbers is random");
+            System.out.println("Failure - Runs test can reject that the stream of numbers is random");
             return new runsTestResult(median, u, z, o, false);
         }
     }

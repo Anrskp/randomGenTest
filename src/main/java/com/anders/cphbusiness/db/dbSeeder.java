@@ -1,5 +1,6 @@
 package com.anders.cphbusiness.db;
 
+import com.anders.cphbusiness.entitiesModel.entData;
 import com.anders.cphbusiness.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -26,17 +27,30 @@ public class dbSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        /*
+        long startTime = System.currentTimeMillis();
 
-/*
         // create entities.
         entData entData = DBSC.generateEntitiesData(10);
 
         // save entities to db.
-        wagerBoardRepo.save(entData.getWagerBoards());
-        wagerBoardMarksRepo.save(entData.getWagerBoardMarks());
-        poolgameTransactionRepo.save(entData.getPoolgameTransactions());
+        boolean success = false;
+        try {
+            wagerBoardRepo.save(entData.getWagerBoards());
+            wagerBoardMarksRepo.save(entData.getWagerBoardMarks());
+            poolgameTransactionRepo.save(entData.getPoolgameTransactions());
+            success = true;
 
-*/
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        if (success) {
+            long endTime = System.currentTimeMillis();
+            long timeSpend = endTime - startTime;
+
+            System.out.println("time spend creating and saving entities : " + timeSpend + "ms");
+        }
+        */
     }
 }

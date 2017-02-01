@@ -1,12 +1,14 @@
 package com.anders.cphbusiness.controller;
 
+import com.anders.cphbusiness.numbersModel.jsonResponse;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.anders.cphbusiness.repositories.wagerBoardMarksRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import com.anders.cphbusiness.repositories.wagerBoardMarksRepo;
 import com.anders.cphbusiness.entitiesModel.*;
-import com.anders.cphbusiness.numbersModel.testSomething;
 
 import java.util.Date;
 import java.util.ArrayList;
@@ -19,10 +21,6 @@ public class restController {
     @Autowired
     private wagerBoardMarksRepo repo;
 
-    private ArrayList<Integer> randomNumbers = new ArrayList<>();
-    private ArrayList<wagerBoardMarks> seq = new ArrayList<>();
-    private ArrayList<java.util.Date> dates = new ArrayList<>();
-
     private randomTestController testCtrl = new randomTestController();
 
     // CONSTRUCTOR
@@ -30,10 +28,14 @@ public class restController {
     }
 
     // METHODS
-    @RequestMapping("/rngCheck")
+    @RequestMapping(value = "/rngCheck", method = RequestMethod.GET)
     public
     @ResponseBody
-    testSomething rngCheck() {
+    jsonResponse rngCheck() {
+
+        ArrayList<Integer> randomNumbers = new ArrayList<>();
+        ArrayList<wagerBoardMarks> seq = new ArrayList<>();
+        ArrayList<java.util.Date> dates = new ArrayList<>();
 
         for (wagerBoardMarks wagerBoardMarks : repo.findAll()) {
             seq.add(wagerBoardMarks);
@@ -41,22 +43,30 @@ public class restController {
             dates.add(wagerBoardMarks.getMeta_CreatedDate());
         }
 
-        // get sample dates
+        // get sample from-to dates
         Collections.sort(dates);
         Date fromDate = dates.get(0);
         Date toDate = dates.get(dates.size() - 1);
 
-        // check date format compared to json.
-        System.out.println("from date: " + fromDate);
-        System.out.println("to date: " + toDate);
+        boolean runsTestRes = testCtrl.runsTest(randomNumbers).isTestConclusion();
+        boolean occurrenceTestRes = testCtrl.occurrencesTest(randomNumbers);
+        boolean boardSeqTestRes = testCtrl.boardSeqTest(seq);
 
-        boolean testResults = testCtrl.runsTest(randomNumbers).isTestConclusion()
-                && testCtrl.occurrencesTest(randomNumbers)
-                && testCtrl.boardSeqTest(seq);
+        boolean testResults = runsTestRes && occurrenceTestRes && boardSeqTestRes;
 
         if (testResults) {
-            return new testSomething(true, "Success", fromDate, toDate);
+            return new jsonResponse(true, "Success", fromDate, toDate);
         } else
-            return new testSomething(false, "Failure", fromDate, toDate);
+            return new jsonResponse(false, "Failure", fromDate, toDate);
+    }
+
+    // test request params
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String testThis(
+            @RequestParam(value = "startDate", defaultValue = "none selected") String startDate,
+            @RequestParam(value = "endDate", defaultValue = "none selected") String endDate,
+            @RequestParam(value = "device", defaultValue = "none selected") String device) {
+
+        return "startDate : " + startDate + " endDate : " + endDate + " device : " + device;
     }
 }

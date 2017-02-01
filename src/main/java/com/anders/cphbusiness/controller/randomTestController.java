@@ -1,7 +1,6 @@
 package com.anders.cphbusiness.controller;
 
 import com.anders.cphbusiness.entitiesModel.wagerBoardMarks;
-import com.anders.cphbusiness.numbersModel.numbersInfo;
 import com.anders.cphbusiness.numbersModel.runsTestResult;
 import com.anders.cphbusiness.testModel.*;
 
@@ -20,15 +19,15 @@ public class randomTestController {
     }
 
     // METHODS
-    public runsTestResult runsTest(ArrayList<Integer> rngNumbers) {
+    runsTestResult runsTest(ArrayList<Integer> rngNumbers) {
         return rt.runsTester(rngNumbers);
     }
 
-    public boolean occurrencesTest(ArrayList<Integer> rngNumbers) {
+    boolean occurrencesTest(ArrayList<Integer> rngNumbers) {
         return ot.occurrencesTester(rngNumbers);
     }
 
-    public boolean boardSeqTest(ArrayList<wagerBoardMarks> rngNumbers) {
+    boolean boardSeqTest(ArrayList<wagerBoardMarks> rngNumbers) {
         return bst.checkBoardDups(rngNumbers);
     }
 

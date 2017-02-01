@@ -7,7 +7,7 @@ import java.util.Collections;
 
 public class occurrencesTest {
 
-    //FIELDS
+    // FIELDS
     private boolean testAccepted = true;
     private ArrayList<numbersInfo> numbersInfoList = new ArrayList<>();
 
@@ -15,7 +15,7 @@ public class occurrencesTest {
     public occurrencesTest() {
     }
 
-    //METHODS
+    // METHODS
     public boolean occurrencesTester(ArrayList<Integer> rngNumbers) {
         Collections.sort(rngNumbers);
 
@@ -60,10 +60,12 @@ public class occurrencesTest {
                 testAccepted = false;
             }
 
-            // System.out.println("number: " + number + " repeats: " + occurrenceValue + " percent above/under average: " + res);
+            //System.out.println("number: " + number + " repeats: " + occurrenceValue + " percent above/under average: " + res);
         }
 
         System.out.println("");
+
+        System.out.println("average occurrences of numbers : " + average + "\n");
 
         System.out.println(" ** highest value detected **");
         System.out.println("number : " + numbersInfoList.get(numbersInfoList.size() - 1).getNumber());
