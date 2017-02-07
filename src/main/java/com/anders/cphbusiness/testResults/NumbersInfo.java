@@ -1,18 +1,18 @@
-package com.anders.cphbusiness.numbersModel;
+package com.anders.cphbusiness.testResults;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-public class numbersInfo {
+public class NumbersInfo {
 
     //FIELDS
     private int number;
     private int occurrences;
     private float percentagesFromAverage;
 
-    public numbersInfo(int number, int occurrences) {
+    public NumbersInfo(int number, int occurrences) {
         this.number = number;
         this.occurrences = occurrences;
         float percent = percentagesFromAverage;
@@ -20,7 +20,7 @@ public class numbersInfo {
 
     @Override
     public String toString() {
-        return "numbersInfo{" +
+        return "NumbersInfo{" +
                 "number=" + number +
                 ", occurrences=" + occurrences +
                 '}';

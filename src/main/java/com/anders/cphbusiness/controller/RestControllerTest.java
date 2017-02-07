@@ -1,47 +1,51 @@
 package com.anders.cphbusiness.controller;
 
-import com.anders.cphbusiness.numbersModel.jsonResponse;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.anders.cphbusiness.testResults.JsonResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.anders.cphbusiness.repositories.wagerBoardMarksRepo;
+import com.anders.cphbusiness.repositories.WagerBoardMarksRepo;
 import com.anders.cphbusiness.entitiesModel.*;
+import com.anders.cphbusiness.storingModel.StoreDbEnt;
+import com.anders.cphbusiness.secondRepo.StoreDbEntRepo;
 
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 
 @RestController
-public class restController {
+public class RestControllerTest {
 
     // FIELDS
     @Autowired
-    private wagerBoardMarksRepo repo;
+    private WagerBoardMarksRepo repo;
 
-    private randomTestController testCtrl = new randomTestController();
+    @Autowired
+    private StoreDbEntRepo storeRepo;
 
-    // CONSTRUCTOR
-    public restController() {
-    }
+    private RandomTestController testCtrl = new RandomTestController();
 
     // METHODS
     @RequestMapping(value = "/rngCheck", method = RequestMethod.GET)
     public
     @ResponseBody
-    jsonResponse rngCheck() {
+    JsonResponse rngCheck() {
 
         ArrayList<Integer> randomNumbers = new ArrayList<>();
-        ArrayList<wagerBoardMarks> seq = new ArrayList<>();
+        ArrayList<WagerBoardMarks> seq = new ArrayList<>();
         ArrayList<java.util.Date> dates = new ArrayList<>();
 
-        for (wagerBoardMarks wagerBoardMarks : repo.findAll()) {
+        for (WagerBoardMarks wagerBoardMarks : repo.findAll()) {
             seq.add(wagerBoardMarks);
             randomNumbers.add(wagerBoardMarks.getMarkNumber());
             dates.add(wagerBoardMarks.getMeta_CreatedDate());
         }
+
+        StoreDbEnt test = new StoreDbEnt(4,"test", 5,5);
+        storeRepo.save(test);
+        System.out.println(storeRepo.findAll());
 
         // get sample from-to dates
         Collections.sort(dates);
@@ -55,9 +59,9 @@ public class restController {
         boolean testResults = runsTestRes && occurrenceTestRes && boardSeqTestRes;
 
         if (testResults) {
-            return new jsonResponse(true, "Success", fromDate, toDate);
+            return new JsonResponse(true, "Success", fromDate, toDate);
         } else
-            return new jsonResponse(false, "Failure", fromDate, toDate);
+            return new JsonResponse(false, "Failure", fromDate, toDate);
     }
 
     // test request params

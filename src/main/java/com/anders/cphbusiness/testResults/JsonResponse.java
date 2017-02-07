@@ -1,4 +1,4 @@
-package com.anders.cphbusiness.numbersModel;
+package com.anders.cphbusiness.testResults;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,14 +7,14 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class jsonResponse {
+public class JsonResponse {
 
     boolean status;
     String msg;
     Date fromDate;
     Date toDate;
 
-    public jsonResponse(boolean status, String msg, Date fromDate, Date toDate) {
+    public JsonResponse(boolean status, String msg, Date fromDate, Date toDate) {
         this.status = status;
         this.msg = msg;
         this.fromDate = fromDate;
@@ -23,7 +23,7 @@ public class jsonResponse {
 
     @Override
     public String toString() {
-        return "jsonResponse{" +
+        return "JsonResponse{" +
                 "status=" + status +
                 ", msg='" + msg + '\'' +
                 ", fromDate=" + fromDate +

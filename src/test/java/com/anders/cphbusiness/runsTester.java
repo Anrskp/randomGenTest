@@ -1,7 +1,7 @@
 package com.anders.cphbusiness;
 
-import com.anders.cphbusiness.controller.randomTestController;
-import com.anders.cphbusiness.testModel.runsTest;
+import com.anders.cphbusiness.controller.RandomTestController;
+import com.anders.cphbusiness.testModel.RunsTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,8 +17,8 @@ import static org.assertj.core.api.Assertions.*;
 public class runsTester {
 
     // FIELDS
-    randomTestController rtc = new randomTestController();
-    runsTest rt = new runsTest();
+    RandomTestController rtc = new RandomTestController();
+    RunsTest rt = new RunsTest();
 
 
     @Before

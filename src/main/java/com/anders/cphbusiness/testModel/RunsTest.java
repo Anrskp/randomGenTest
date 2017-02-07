@@ -1,13 +1,13 @@
 package com.anders.cphbusiness.testModel;
 
-import com.anders.cphbusiness.numbersModel.runsTestResult;
+import com.anders.cphbusiness.testResults.RunsTestResult;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 @Getter
-public class runsTest {
+public class RunsTest {
 
     // FIELDS
     float median;
@@ -16,11 +16,11 @@ public class runsTest {
     double o;
 
     // CONTROLLER
-    public runsTest() {
+    public RunsTest() {
     }
 
     // METHODS
-    public runsTestResult runsTester(ArrayList<Integer> numbers) {
+    public RunsTestResult runsTester(ArrayList<Integer> numbers) {
 
         ArrayList<Integer> sortedNumbers = new ArrayList<>(numbers);
         ArrayList<Character> sortedRuns = new ArrayList<>();
@@ -85,10 +85,10 @@ public class runsTest {
         // conclusion from rejection region ( a = .05, rejection region = a / 2 = 0.025 = -1.96 ~ 1.96 )
         if (z > -1.96 && z < 1.96) {
             System.out.println("Success - Runs test can't reject that the stream of numbers is random");
-            return new runsTestResult(median, u, z, o, true);
+            return new RunsTestResult(u, z, o, true);
         } else {
             System.out.println("Failure - Runs test can reject that the stream of numbers is random");
-            return new runsTestResult(median, u, z, o, false);
+            return new RunsTestResult(u, z, o, false);
         }
     }
 }

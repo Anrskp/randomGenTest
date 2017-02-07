@@ -3,17 +3,14 @@ package com.anders.cphbusiness.entitiesModel;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Getter
 @Setter
 @IdClass(PK_poolgameTransaction.class)
-public class poolgameTransaction {
+public class PoolgameTransaction {
 
     // FIELDS
     @Column(columnDefinition = "nvarchar(50)")
@@ -135,10 +132,10 @@ public class poolgameTransaction {
     int CHECK_SUM;
 
     //CONSTRUCTORS
-    protected poolgameTransaction() {
+    protected PoolgameTransaction() {
     }
 
-    public poolgameTransaction(String meta_transactionID, String meta_sequenceID, String betClassIdentification, Long betTypeIdentification, Long cardType, Long couponTypeIdentification, String customerIdentification, String drawIdentification, Long fractionGameType, Long fractionParentDividedCount, Long fractionParentOrChild, String fractionParentWagerIdentification, Long fractionsBought, String gameIdentification, Long holdIndicator, String linkDrawIdentification, String linkGameIdentification, String linkTransactionIdentification, Long playedByInternetIndicator, Long printRun, Long prizeTypeIdentification, Long receiptNumber, Long rejectIndicator, String retailerIdentification, String salesChannelData, String salesChannelIdentification, Long terminalNumber, Date transactionDatetime, String transactionIdentification, String transactionState, Long transactionType, Float transactionValue, Long validationCashTicketIndicator, Long validationClaimTicketIndicator, Long validationExchangeIndicator, Long validationFreePrizeCashedIndicator, Long validationLastDrawNumberOfValidation, Long validationRefundTicketIndicator, Long validationType, Long wagerBoardQuickPickMarksBoard, String wagerHeaderAddon1GameIdentification, Float wagerHeaderAddon1Value, String wagerHeaderAddon2GameIdentification, Float wagerHeaderAddon2Value, Long wagerHeaderBoards, Long wagerHeaderDurationTransaction, Long wagerHeaderFreeTicket, String wagerHeaderLastDrawNumber, String wagerHeaderStartDrawNumber, Date meta_CreatedDate, Date meta_FromDate, Date meta_ToDate, Date meta_InsertedDate, int meta_Audit_Inserted, int meta_IsCurrent, int meta_Audit_Updated, String meta_API_Version, int meta_Exported_AX, int meta_Exported_BI, int KEY_CHECK_SUM, int CHECK_SUM) {
+    public PoolgameTransaction(String meta_transactionID, String meta_sequenceID, String betClassIdentification, Long betTypeIdentification, Long cardType, Long couponTypeIdentification, String customerIdentification, String drawIdentification, Long fractionGameType, Long fractionParentDividedCount, Long fractionParentOrChild, String fractionParentWagerIdentification, Long fractionsBought, String gameIdentification, Long holdIndicator, String linkDrawIdentification, String linkGameIdentification, String linkTransactionIdentification, Long playedByInternetIndicator, Long printRun, Long prizeTypeIdentification, Long receiptNumber, Long rejectIndicator, String retailerIdentification, String salesChannelData, String salesChannelIdentification, Long terminalNumber, Date transactionDatetime, String transactionIdentification, String transactionState, Long transactionType, Float transactionValue, Long validationCashTicketIndicator, Long validationClaimTicketIndicator, Long validationExchangeIndicator, Long validationFreePrizeCashedIndicator, Long validationLastDrawNumberOfValidation, Long validationRefundTicketIndicator, Long validationType, Long wagerBoardQuickPickMarksBoard, String wagerHeaderAddon1GameIdentification, Float wagerHeaderAddon1Value, String wagerHeaderAddon2GameIdentification, Float wagerHeaderAddon2Value, Long wagerHeaderBoards, Long wagerHeaderDurationTransaction, Long wagerHeaderFreeTicket, String wagerHeaderLastDrawNumber, String wagerHeaderStartDrawNumber, Date meta_CreatedDate, Date meta_FromDate, Date meta_ToDate, Date meta_InsertedDate, int meta_Audit_Inserted, int meta_IsCurrent, int meta_Audit_Updated, String meta_API_Version, int meta_Exported_AX, int meta_Exported_BI, int KEY_CHECK_SUM, int CHECK_SUM) {
         this.meta_transactionID = meta_transactionID;
         this.meta_sequenceID = meta_sequenceID;
         BetClassIdentification = betClassIdentification;

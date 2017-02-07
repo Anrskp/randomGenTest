@@ -1,20 +1,20 @@
 package com.anders.cphbusiness.testModel;
 
-import com.anders.cphbusiness.entitiesModel.wagerBoardMarks;
+import com.anders.cphbusiness.entitiesModel.WagerBoardMarks;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class boardSequenceTest {
+public class BoardSequenceTest {
 
     //FIELDS
 
     //CONSTRUCTOR
-    public boardSequenceTest() {
+    public BoardSequenceTest() {
     }
 
     //METHODS
-    public boolean checkBoardDups(ArrayList<wagerBoardMarks> seq) {
+    public boolean checkBoardDups(ArrayList<WagerBoardMarks> seq) {
         boolean noDups = true;
 
         // sort by wager identification
@@ -29,24 +29,21 @@ public class boardSequenceTest {
         ArrayList<String> allSeqs = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
 
-        for (wagerBoardMarks aSeq : seq) {
+        for (WagerBoardMarks aSeq : seq) {
 
             sb.append(aSeq.getMarkNumber()).append(" ");
 
             if (aSeq.getMarkSequenceNumber() == 7) {
-                String test = sb.toString();
-                allSeqs.add(test);
+                String newSeq = sb.toString();
+                allSeqs.add(newSeq);
 
                 // reset stringBuilder
                 sb.setLength(0);
             }
         }
 
-        //System.out.println(allSeqs);
-
         // check for duplicates in board sequences
         for (String number : allSeqs) {
-            //System.out.println(number);
             int frequency = Collections.frequency(allSeqs, number);
 
             if (frequency > 1) {
@@ -54,6 +51,7 @@ public class boardSequenceTest {
                 System.out.println(number + " is repeat " + frequency + " times");
             }
         }
+
         return noDups;
     }
 }

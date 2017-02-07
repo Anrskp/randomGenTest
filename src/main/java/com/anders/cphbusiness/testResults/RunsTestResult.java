@@ -1,19 +1,16 @@
-package com.anders.cphbusiness.numbersModel;
+package com.anders.cphbusiness.testResults;
 
 import lombok.Getter;
 
 @Getter
-public class runsTestResult {
+public class RunsTestResult {
 
-    private float median;
     private float u;
     private double z;
     private double o;
     boolean testConclusion;
 
-    public runsTestResult(float median, float u, double z, double o, boolean testConclusion) {
-
-        this.median = median;
+    public RunsTestResult(float u, double z, double o, boolean testConclusion) {
         this.u = u;
         this.z = z;
         this.o = o;

@@ -1,18 +1,18 @@
 package com.anders.cphbusiness.testModel;
 
-import com.anders.cphbusiness.numbersModel.numbersInfo;
+import com.anders.cphbusiness.testResults.NumbersInfo;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class occurrencesTest {
+public class OccurrencesTest {
 
     // FIELDS
     private boolean testAccepted = true;
-    private ArrayList<numbersInfo> numbersInfoList = new ArrayList<>();
+    private ArrayList<NumbersInfo> numbersInfoList = new ArrayList<>();
 
     // CONSTRUCTOR
-    public occurrencesTest() {
+    public OccurrencesTest() {
     }
 
     // METHODS
@@ -24,17 +24,17 @@ public class occurrencesTest {
 
             int frequency = Collections.frequency(rngNumbers, i);
 
-            numbersInfo number = new numbersInfo(i, frequency);
+            NumbersInfo currentNumber = new NumbersInfo(i, frequency);
 
             if (frequency > 0) {
-                numbersInfoList.add(number);
+                numbersInfoList.add(currentNumber);
             }
         }
 
         // average occurrences
         int sumOfOccurrences = 0;
         int average;
-        for (numbersInfo aNumbersInfoList : numbersInfoList) {
+        for (NumbersInfo aNumbersInfoList : numbersInfoList) {
             sumOfOccurrences += aNumbersInfoList.getOccurrences();
         }
 
@@ -49,18 +49,17 @@ public class occurrencesTest {
             return 0;
         });
 
-        for (numbersInfo numbersInfo : numbersInfoList) {
-            int number = numbersInfo.getNumber();
-            int occurrenceValue = numbersInfo.getOccurrences();
+        for (NumbersInfo NumbersInfo : numbersInfoList) {
+            int number = NumbersInfo.getNumber();
+            int occurrenceValue = NumbersInfo.getOccurrences();
 
             float res = (float) (occurrenceValue - average) / (average) * 100;
-            numbersInfo.setPercentagesFromAverage(res);
+            NumbersInfo.setPercentagesFromAverage(res);
 
             if (res > 200 || res < -200) {
                 testAccepted = false;
+                System.out.println("number: " + number + " occurrences " + occurrenceValue + " percent above/below avarage: " + res );
             }
-
-            //System.out.println("number: " + number + " repeats: " + occurrenceValue + " percent above/under average: " + res);
         }
 
         System.out.println("");

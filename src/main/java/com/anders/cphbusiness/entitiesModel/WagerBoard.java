@@ -10,16 +10,16 @@ import javax.persistence.IdClass;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@Entity
 @Getter
 @Setter
-@Entity
-@IdClass(PK_WagerBoardMarks.class)
-public class wagerBoardMarks {
+@IdClass(PK_wagerBoard.class)
+public class WagerBoard {
 
     // FIELDS
-    @Column(columnDefinition = "nvarchar(50)")
+    @Column(columnDefinition = "nvarchar(50) default 'null'")
     private String meta_transactionID;
-    @Column(columnDefinition = "nvarchar(50)")
+    @Column(columnDefinition = "nvarchar(50) default 'null'")
     private String meta_sequenceID;
     @Column(columnDefinition = "nvarchar(20)")
     @NotNull
@@ -27,20 +27,28 @@ public class wagerBoardMarks {
     private String WagerIdentification;
     @NotNull
     @Id
-    private int MarkSequenceNumber;
-    private int MarkNumber;
-    @Column(columnDefinition = "nvarchar(20) default 0")
+    private int BoardNumber;
+    @Column(columnDefinition = "bigint default 'null'")
+    private long FractionGameType;
+    @Column(columnDefinition = "bigint default 'null'")
+    private long FractionParentDividedCount;
+    @Column(columnDefinition = "bigint default 'null'")
+    private long FractionParentOrChild;
+    @Column(columnDefinition = "nvarchar(20) default 'null'")
+    private String FractionParentWagerIdentification;
+    @Column(columnDefinition = "bigint default 'null'")
+    private long FractionsBought;
+    @Column(columnDefinition = "nvarchar(20) default 'null'")
     @NotNull
     @Id
     private String GameIdentification;
+    @Column(columnDefinition = "nvarchar(20) default 'null'")
     @NotNull
-    @Id
-    int BoardNumber;
-    @Column(columnDefinition = "datetime2")
-    @NotNull
+    private String TransactionIdentification;
+    @Column(columnDefinition = "datetime2 default 'null'")
     @Id
     private Date meta_CreatedDate;
-    @Column(columnDefinition = "datetime2")
+    @Column(columnDefinition = "datetime2 default 'null'")
     private Date meta_FromDate;
     @Column(columnDefinition = "datetime2 default '9999-12-31'")
     private Date meta_ToDate;
@@ -56,22 +64,28 @@ public class wagerBoardMarks {
     private int meta_Audit_Updated;
     @Column(columnDefinition = "nvarchar(10)")
     private String meta_API_Version;
+    @Column(columnDefinition = "int default 0")
     private int KEY_CHECK_SUM;
+    @Column(columnDefinition = "int default 0")
     private int CHECK_SUM;
 
 
     // CONSTRUCTORS
-    protected wagerBoardMarks() {
+    protected WagerBoard() {
     }
 
-    public wagerBoardMarks(String meta_transactionID, String meta_sequenceID, String wagerIdentification, int markSequenceNumber, int markNumber, String gameIdentification, int boardNumber, Date meta_CreatedDate, Date meta_FromDate, Date meta_ToDate, Date meta_InsertedDate, Date meta_ModifiedDate, int meta_Audit_Inserted, int meta_IsCurrent, int meta_Audit_Updated, String meta_API_Version, int KEY_CHECK_SUM, int CHECK_SUM) {
+    public WagerBoard(String meta_transactionID, String meta_sequenceID, String wagerIdentification, int boardNumber, long fractionGameType, long fractionParentDividedCount, long fractionParentOrChild, String fractionParentWagerIdentification, long fractionsBought, String gameIdentification, String transactionIdentification, Date meta_CreatedDate, Date meta_FromDate, Date meta_ToDate, Date meta_InsertedDate, Date meta_ModifiedDate, int meta_Audit_Inserted, int meta_IsCurrent, int meta_Audit_Updated, String meta_API_Version, int KEY_CHECK_SUM, int CHECK_SUM) {
         this.meta_transactionID = meta_transactionID;
         this.meta_sequenceID = meta_sequenceID;
         WagerIdentification = wagerIdentification;
-        MarkSequenceNumber = markSequenceNumber;
-        MarkNumber = markNumber;
-        GameIdentification = gameIdentification;
         BoardNumber = boardNumber;
+        FractionGameType = fractionGameType;
+        FractionParentDividedCount = fractionParentDividedCount;
+        FractionParentOrChild = fractionParentOrChild;
+        FractionParentWagerIdentification = fractionParentWagerIdentification;
+        FractionsBought = fractionsBought;
+        GameIdentification = gameIdentification;
+        TransactionIdentification = transactionIdentification;
         this.meta_CreatedDate = meta_CreatedDate;
         this.meta_FromDate = meta_FromDate;
         this.meta_ToDate = meta_ToDate;
@@ -84,4 +98,5 @@ public class wagerBoardMarks {
         this.KEY_CHECK_SUM = KEY_CHECK_SUM;
         this.CHECK_SUM = CHECK_SUM;
     }
+
 }

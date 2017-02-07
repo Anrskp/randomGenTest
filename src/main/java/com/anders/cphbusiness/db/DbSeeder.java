@@ -1,28 +1,27 @@
 package com.anders.cphbusiness.db;
 
-import com.anders.cphbusiness.entitiesModel.entData;
 import com.anders.cphbusiness.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import com.anders.cphbusiness.controller.dbSeederController;
+import com.anders.cphbusiness.controller.DbSeederController;
 
 @Component
-public class dbSeeder implements CommandLineRunner {
+public class DbSeeder implements CommandLineRunner {
 
     //FIELDS
-    private dbSeederController DBSC = new dbSeederController();
+    private DbSeederController DBSC = new DbSeederController();
 
-    private wagerBoardRepo wagerBoardRepo;
-    private wagerBoardMarksRepo wagerBoardMarksRepo;
-    private poolgameTransactionRepo poolgameTransactionRepo;
+    private WagerBoardRepo wagerBoardRepo;
+    private WagerBoardMarksRepo wagerBoardMarksRepo;
+    private PoolgameTransactionRepo PoolgameTransactionRepo;
 
     @Autowired
     // CONSTRUCTOR
-    public dbSeeder(wagerBoardRepo wagerBoardRepo, wagerBoardMarksRepo wagerBoardMarksRepo, poolgameTransactionRepo poolgameTransactionRepo) {
+    public DbSeeder(WagerBoardRepo wagerBoardRepo, WagerBoardMarksRepo wagerBoardMarksRepo, PoolgameTransactionRepo PoolgameTransactionRepo) {
         this.wagerBoardRepo = wagerBoardRepo;
         this.wagerBoardMarksRepo = wagerBoardMarksRepo;
-        this.poolgameTransactionRepo = poolgameTransactionRepo;
+        this.PoolgameTransactionRepo = PoolgameTransactionRepo;
     }
 
     @Override
@@ -31,14 +30,14 @@ public class dbSeeder implements CommandLineRunner {
         long startTime = System.currentTimeMillis();
 
         // create entities.
-        entData entData = DBSC.generateEntitiesData(10);
+        EntData EntData = DBSC.generateEntitiesData(10);
 
         // save entities to db.
         boolean success = false;
         try {
-            wagerBoardRepo.save(entData.getWagerBoards());
-            wagerBoardMarksRepo.save(entData.getWagerBoardMarks());
-            poolgameTransactionRepo.save(entData.getPoolgameTransactions());
+            wagerBoardRepo.save(EntData.getWagerBoards());
+            wagerBoardMarksRepo.save(EntData.getWagerBoardMarks());
+            poolgameTransactionRepo.save(EntData.getPoolgameTransactions());
             success = true;
 
         } catch (Exception e) {

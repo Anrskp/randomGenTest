@@ -1,20 +1,20 @@
 package com.anders.cphbusiness.controller;
 
-import com.anders.cphbusiness.entitiesModel.entData;
-import com.anders.cphbusiness.entitiesModel.poolgameTransaction;
-import com.anders.cphbusiness.entitiesModel.wagerBoard;
-import com.anders.cphbusiness.entitiesModel.wagerBoardMarks;
+import com.anders.cphbusiness.entitiesModel.EntData;
+import com.anders.cphbusiness.entitiesModel.PoolgameTransaction;
+import com.anders.cphbusiness.entitiesModel.WagerBoard;
+import com.anders.cphbusiness.entitiesModel.WagerBoardMarks;
 
 import java.util.*;
 
-public class dbSeederController {
+public class DbSeederController {
 
     // FIELDS
     private static Random randomNumber = new Random();
 
-    private List<wagerBoard> wagerBoardsList = new ArrayList<>();
-    private List<wagerBoardMarks> wagerBoardMarksList = new ArrayList<>();
-    private List<poolgameTransaction> poolgameTransactionList = new ArrayList<>();
+    private List<WagerBoard> wagerBoardsList = new ArrayList<>();
+    private List<WagerBoardMarks> wagerBoardMarksList = new ArrayList<>();
+    private List<PoolgameTransaction> poolgameTransactionList = new ArrayList<>();
     private static ArrayList<Integer> currentBoardNumbers = new ArrayList<>();
     private int currentBoardNumber = 1;
     private String currentWagerIdentification = Integer.toString(getRandomNumber() + getRandomNumber() + getRandomNumber());
@@ -35,7 +35,7 @@ public class dbSeederController {
     }
 
     // generate x amount of 'random' entities.
-    public entData generateEntitiesData(int amountOfEnts) {
+    public EntData generateEntitiesData(int amountOfEnts) {
 
         // amount
         for (int i = 0; i < amountOfEnts; i++) {
@@ -72,7 +72,7 @@ public class dbSeederController {
                     int KEY_CHECK_SUM = 0;
                     int CHECK_SUM = 0;
 
-                    wagerBoard wagerBoardEnt = new wagerBoard(meta_transactionID, meta_sequenceID, WagerIdentification, BoardNumber, FractionGameType, FractionParentDividedCount, FractionParentOrChild, FractionParentWagerIdentification, FractionsBought, GameIdentification, TransactionIdentification, meta_CreatedDate, meta_FromDate, meta_ToDate, meta_InsertedDate, meta_ModifiedDate, meta_Audit_Inserted, meta_IsCurrent, meta_Audit_Updated, meta_API_Version, KEY_CHECK_SUM, CHECK_SUM);
+                    WagerBoard wagerBoardEnt = new WagerBoard(meta_transactionID, meta_sequenceID, WagerIdentification, BoardNumber, FractionGameType, FractionParentDividedCount, FractionParentOrChild, FractionParentWagerIdentification, FractionsBought, GameIdentification, TransactionIdentification, meta_CreatedDate, meta_FromDate, meta_ToDate, meta_InsertedDate, meta_ModifiedDate, meta_Audit_Inserted, meta_IsCurrent, meta_Audit_Updated, meta_API_Version, KEY_CHECK_SUM, CHECK_SUM);
                     wagerBoardsList.add(wagerBoardEnt);
 
                     // WAGER BOARD MARKS FIELDS
@@ -96,7 +96,7 @@ public class dbSeederController {
                     //KEY_CHECK_SUM;
                     //CHECK_SUM;
 
-                    wagerBoardMarks wagerBoardMarksEnt = new wagerBoardMarks(meta_transactionID, meta_sequenceID, WagerIdentification, MarkSequenceNumber, MarkNumber, GameIdentification, BoardNumber, meta_CreatedDate, meta_FromDate, meta_ToDate, meta_InsertedDate, meta_ModifiedDate, meta_Audit_Inserted, meta_IsCurrent, meta_Audit_Updated, meta_API_Version, KEY_CHECK_SUM, CHECK_SUM);
+                    WagerBoardMarks wagerBoardMarksEnt = new WagerBoardMarks(meta_transactionID, meta_sequenceID, WagerIdentification, MarkSequenceNumber, MarkNumber, GameIdentification, BoardNumber, meta_CreatedDate, meta_FromDate, meta_ToDate, meta_InsertedDate, meta_ModifiedDate, meta_Audit_Inserted, meta_IsCurrent, meta_Audit_Updated, meta_API_Version, KEY_CHECK_SUM, CHECK_SUM);
                     wagerBoardMarksList.add(wagerBoardMarksEnt);
 
                     // POOL GAME TRANSACTIONS FIELDS
@@ -163,7 +163,7 @@ public class dbSeederController {
                     //KEY_CHECK_SUM
                     //CHECK_SUM
 
-                    poolgameTransaction poolgameTransactionEnt = new poolgameTransaction(meta_transactionID, meta_sequenceID, BetClassIdentification, BetTypeIdentification, CardType, CouponTypeIdentification, CustomerIdentification, DrawIdentification, FractionGameType, FractionParentDividedCount, FractionParentOrChild, FractionParentWagerIdentification, FractionsBought, GameIdentification, HoldIndicator, LinkDrawIdentification, LinkGameIdentification, LinkTransactionIdentification, PlayedByInternetIndicator, PrintRun, PrizeTypeIdentification, ReceiptNumber, RejectIndicator, RetailerIdentification, SalesChannelData, SalesChannelIdentification, TerminalNumber, TransactionDatetime, TransactionIdentification, TransactionState, TransactionType, TransactionValue, ValidationCashTicketIndicator, ValidationClaimTicketIndicator, ValidationExchangeIndicator, ValidationFreePrizeCashedIndicator, ValidationLastDrawNumberOfValidation, ValidationRefundTicketIndicator, ValidationType, WagerBoardQuickPickMarksBoard, WagerHeaderAddon1GameIdentification, WagerHeaderAddon1Value, WagerHeaderAddon2GameIdentification, WagerHeaderAddon2Value, WagerHeaderBoards, WagerHeaderDurationTransaction, WagerHeaderFreeTicket, WagerHeaderLastDrawNumber, WagerHeaderStartDrawNumber, meta_CreatedDate, meta_FromDate, meta_ToDate, meta_InsertedDate, meta_Audit_Inserted, meta_IsCurrent, meta_Audit_Updated, meta_API_Version, meta_Exported_AX, meta_Exported_BI, KEY_CHECK_SUM, CHECK_SUM);
+                    PoolgameTransaction poolgameTransactionEnt = new PoolgameTransaction(meta_transactionID, meta_sequenceID, BetClassIdentification, BetTypeIdentification, CardType, CouponTypeIdentification, CustomerIdentification, DrawIdentification, FractionGameType, FractionParentDividedCount, FractionParentOrChild, FractionParentWagerIdentification, FractionsBought, GameIdentification, HoldIndicator, LinkDrawIdentification, LinkGameIdentification, LinkTransactionIdentification, PlayedByInternetIndicator, PrintRun, PrizeTypeIdentification, ReceiptNumber, RejectIndicator, RetailerIdentification, SalesChannelData, SalesChannelIdentification, TerminalNumber, TransactionDatetime, TransactionIdentification, TransactionState, TransactionType, TransactionValue, ValidationCashTicketIndicator, ValidationClaimTicketIndicator, ValidationExchangeIndicator, ValidationFreePrizeCashedIndicator, ValidationLastDrawNumberOfValidation, ValidationRefundTicketIndicator, ValidationType, WagerBoardQuickPickMarksBoard, WagerHeaderAddon1GameIdentification, WagerHeaderAddon1Value, WagerHeaderAddon2GameIdentification, WagerHeaderAddon2Value, WagerHeaderBoards, WagerHeaderDurationTransaction, WagerHeaderFreeTicket, WagerHeaderLastDrawNumber, WagerHeaderStartDrawNumber, meta_CreatedDate, meta_FromDate, meta_ToDate, meta_InsertedDate, meta_Audit_Inserted, meta_IsCurrent, meta_Audit_Updated, meta_API_Version, meta_Exported_AX, meta_Exported_BI, KEY_CHECK_SUM, CHECK_SUM);
                     poolgameTransactionList.add(poolgameTransactionEnt);
 
                     currentBoardNumbers.add(MarkNumber);
@@ -177,6 +177,6 @@ public class dbSeederController {
             currentBoardNumber = 1;
         }
 
-        return new entData(wagerBoardsList, wagerBoardMarksList, poolgameTransactionList);
+        return new EntData(wagerBoardsList, wagerBoardMarksList, poolgameTransactionList);
     }
 }
