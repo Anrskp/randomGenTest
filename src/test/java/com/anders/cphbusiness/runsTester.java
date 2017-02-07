@@ -1,7 +1,7 @@
 package com.anders.cphbusiness;
 
-import com.anders.cphbusiness.controller.RandomTestController;
-import com.anders.cphbusiness.testModel.RunsTest;
+import com.anders.cphbusiness.Controller.RandomTestController;
+import com.anders.cphbusiness.Model.TestModel.RunsTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
