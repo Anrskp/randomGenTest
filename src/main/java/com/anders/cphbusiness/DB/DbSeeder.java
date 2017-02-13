@@ -11,11 +11,14 @@ public class DbSeeder implements CommandLineRunner {
 
     //FIELDS
     private DbSeederController DBSC = new DbSeederController();
-
+    @Autowired
     private WagerBoardRepo wagerBoardRepo;
+    @Autowired
     private WagerBoardMarksRepo wagerBoardMarksRepo;
+    @Autowired
     private PoolgameTransactionRepo PoolgameTransactionRepo;
 
+    /*
     @Autowired
     // CONSTRUCTOR
     public DbSeeder(WagerBoardRepo wagerBoardRepo, WagerBoardMarksRepo wagerBoardMarksRepo, PoolgameTransactionRepo PoolgameTransactionRepo) {
@@ -23,6 +26,7 @@ public class DbSeeder implements CommandLineRunner {
         this.wagerBoardMarksRepo = wagerBoardMarksRepo;
         this.PoolgameTransactionRepo = PoolgameTransactionRepo;
     }
+    */
 
     @Override
     public void run(String... args) throws Exception {
