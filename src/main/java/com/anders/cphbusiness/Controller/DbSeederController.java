@@ -1,3 +1,4 @@
+/*
 package com.anders.cphbusiness.Controller;
 
 import com.anders.cphbusiness.Model.PrimaryModel.EntData;
@@ -180,3 +181,4 @@ public class DbSeederController {
         return new EntData(wagerBoardsList, wagerBoardMarksList, poolgameTransactionList);
     }
 }
+*/

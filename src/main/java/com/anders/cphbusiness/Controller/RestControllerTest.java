@@ -1,6 +1,7 @@
 package com.anders.cphbusiness.Controller;
 
 import com.anders.cphbusiness.Model.TestResultsModel.JsonResponse;
+import org.apache.catalina.connector.Response;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +44,10 @@ public class RestControllerTest {
             dates.add(wagerBoardMarks.getMeta_CreatedDate());
         }
 
+        /*
         StoreDbEnt test = new StoreDbEnt(4,"test", 5,5);
         storeRepo.save(test);
-        System.out.println(storeRepo.findAll());
+        */
 
         // get sample from-to dates
         Collections.sort(dates);

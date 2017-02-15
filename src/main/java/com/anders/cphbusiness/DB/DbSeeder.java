@@ -1,3 +1,4 @@
+/*
 package com.anders.cphbusiness.DB;
 
 import com.anders.cphbusiness.Repositories.primaryRepo.*;
@@ -18,7 +19,7 @@ public class DbSeeder implements CommandLineRunner {
     @Autowired
     private PoolgameTransactionRepo PoolgameTransactionRepo;
 
-    /*
+
     @Autowired
     // CONSTRUCTOR
     public DbSeeder(WagerBoardRepo wagerBoardRepo, WagerBoardMarksRepo wagerBoardMarksRepo, PoolgameTransactionRepo PoolgameTransactionRepo) {
@@ -26,11 +27,11 @@ public class DbSeeder implements CommandLineRunner {
         this.wagerBoardMarksRepo = wagerBoardMarksRepo;
         this.PoolgameTransactionRepo = PoolgameTransactionRepo;
     }
-    */
+
 
     @Override
     public void run(String... args) throws Exception {
-        /*
+
         long startTime = System.currentTimeMillis();
 
         // create entities.
@@ -54,6 +55,7 @@ public class DbSeeder implements CommandLineRunner {
 
             System.out.println("time spend creating and saving entities : " + timeSpend + "ms");
         }
-        */
+
     }
 }
+*/

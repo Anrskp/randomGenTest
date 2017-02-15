@@ -19,9 +19,9 @@ public class BoardSequenceTest {
 
         // sort by wager identification
         seq.sort((number1, number2) -> {
-            if (Integer.parseInt(number1.getWagerIdentification()) > Integer.parseInt(number2.getWagerIdentification()))
+            if (Long.parseLong(number1.getWagerIdentification()) > Long.parseLong(number2.getWagerIdentification()))
                 return 1;
-            if (Integer.parseInt(number1.getWagerIdentification()) < Integer.parseInt(number2.getWagerIdentification()))
+            if (Long.parseLong(number1.getWagerIdentification()) < Long.parseLong(number2.getWagerIdentification()))
                 return -1;
             return 0;
         });

@@ -1,15 +1,64 @@
 package com.anders.cphbusiness.Controller;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Date;
-// MAKE COMMAND LINE RUNNER ?
-public class DbSeederCtrlTest {
+import java.util.List;
+import java.util.Random;
 
-    public void generateTestData() {
+import com.anders.cphbusiness.Model.PrimaryModel.PoolgameTransaction;
+import com.anders.cphbusiness.Model.PrimaryModel.WagerBoard;
+import com.anders.cphbusiness.Model.PrimaryModel.WagerBoardMarks;
+import com.anders.cphbusiness.Repositories.primaryRepo.PoolgameTransactionRepo;
+import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardMarksRepo;
+import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
+
+@Component
+public class DbSeederCtrlTest implements CommandLineRunner {
+
+    private static Random randomNumber = new Random();
+
+    @Autowired
+    PoolgameTransactionRepo PGTrepo;
+    @Autowired
+    WagerBoardRepo WBrepo;
+    @Autowired
+    WagerBoardMarksRepo WBMrepo;
+
+    private List<Integer> markNumbersOnCurrentBoard = new ArrayList<>();
+    private List<WagerBoard> wagerBoardsList = new ArrayList<>();
+    private List<WagerBoardMarks> wagerBoardMarksList = new ArrayList<>();
+    private List<PoolgameTransaction> poolgameTransactionList = new ArrayList<>();
+
+    private SecureRandom random = new SecureRandom();
+
+    private String nextSessionId() {
+        return new BigInteger(60, random).toString();
+    }
+
+    private int getRandomMarkNumber() {
+
+        int rn = randomNumber.nextInt(46) + 1;
+        while(markNumbersOnCurrentBoard.contains(rn)) {
+            rn = randomNumber.nextInt(46) + 1;
+        }
+        return rn;
+    }
+
+    private void generateTestData() {
 
         // POOL GAME TRANSACTIONS
         for (int i = 1; i < 11; i++) {
 
-            String PGT_meta_transactionID = "";
+            String randomID = nextSessionId();
+            int currentBoardNumber = 1;
+
+            String PGT_meta_transactionID = randomID;
             String PGT_meta_sequenceID = "";
             String PGT_BetClassIdentification = "";
             long PGT_BetTypeIdentification = 3;
@@ -21,7 +70,7 @@ public class DbSeederCtrlTest {
             long PGT_FractionParentDividedCount = 0;
             long PGT_FractionParentOrChild = 0;
             String PGT_FractionParentWagerIdentification = "";
-            int PGT_FractionsBought = 0;
+            long PGT_FractionsBought = 0;
             String PGT_GameIdentification = "";
             long PGT_HoldIndicator = 0;
             String PGT_LinkDrawIdentification = "";
@@ -37,7 +86,7 @@ public class DbSeederCtrlTest {
             String PGT_SalesChannelIdentification = "";
             long PGT_TerminalNumber = 0;
             Date PGT_TransactionDatetime = new Date();
-            String PGT_TransactionIdentification = ""; // KEY
+            String PGT_TransactionIdentification = randomID; // KEY
             String PGT_TransactionState = "";
             long PGT_TransactionType = 0;
             float PGT_TransactionValue = 0;
@@ -71,66 +120,97 @@ public class DbSeederCtrlTest {
             int PGT_KEY_CHECK_SUM = 0;
             int PGT_CHECK_SUM = 0;
 
-            // create and add
+            PoolgameTransaction poolgameTransactionEnt = new PoolgameTransaction(PGT_meta_transactionID, PGT_meta_sequenceID, PGT_BetClassIdentification, PGT_BetTypeIdentification, PGT_CardType, PGT_CouponTypeIdentification, PGT_CustomerIdentification, PGT_DrawIdentification, PGT_FractionGameType, PGT_FractionParentDividedCount, PGT_FractionParentOrChild, PGT_FractionParentWagerIdentification, PGT_FractionsBought, PGT_GameIdentification, PGT_HoldIndicator, PGT_LinkDrawIdentification, PGT_LinkGameIdentification, PGT_LinkTransactionIdentification, PGT_PlayedByInternetIndicator, PGT_PrintRun, PGT_PrizeTypeIdentification, PGT_ReceiptNumber, PGT_RejectIndicator, PGT_RetailerIdentification, PGT_SalesChannelData, PGT_SalesChannelIdentification, PGT_TerminalNumber, PGT_TransactionDatetime, PGT_TransactionIdentification, PGT_TransactionState, PGT_TransactionType, PGT_TransactionValue, PGT_ValidationCashTicketIndicator, PGT_ValidationClaimTicketIndicator, PGT_ValidationExchangeIndicator, PGT_ValidationFreePrizeCashedIndicator, PGT_ValidationLastDrawNumberOfValidation, PGT_ValidationRefundTicketIndicator, PGT_ValidationType, PGT_WagerBoardQuickPickMarksBoard, PGT_WagerHeaderAddon1GameIdentification, PGT_WagerHeaderAddon1Value, PGT_WagerHeaderAddon2GameIdentification, PGT_WagerHeaderAddon2Value, PGT_WagerHeaderBoards, PGT_WagerHeaderDurationTransaction, PGT_WagerHeaderFreeTicket, PGT_WagerHeaderLastDrawNumber, PGT_WagerHeaderStartDrawNumber, PGT_meta_CreatedDate, PGT_meta_FromDate, PGT_meta_ToDate, PGT_meta_InsertedDate, PGT_meta_Audit_Inserted, PGT_meta_IsCurrent, PGT_meta_Audit_Updated, PGT_meta_API_Version, PGT_meta_Exported_AX, PGT_meta_Exported_BI, PGT_KEY_CHECK_SUM, PGT_CHECK_SUM);
+            poolgameTransactionList.add(poolgameTransactionEnt);
+
+            // WAGER BOARD
+            for (int j = 1; j < 11; j++) {
+
+
+                String WB_meta_transactionID = randomID;
+                String WB_meta_sequenceID = null;
+                String WB_WagerIdentification = randomID; // KEY
+                int WB_BoardNumber = currentBoardNumber; // KEY
+                long WB_FractionGameType = 0;
+                long WB_FractionParentDividedCount = 0;
+                long WB_FractionParentOrChild = 0;
+                String WB_FractionParentWagerIdentification = null;
+                long WB_FractionsBought = 0;
+                String WB_GameIdentification = "011-000000034"; // KEY
+                String WB_TransactionIdentification = randomID;
+                Date WB_meta_CreatedDate = new Date(); // KEY
+                Date WB_meta_FromDate = new Date();
+                Date WB_meta_ToDate = new Date();
+                Date WB_meta_InsertedDate = new Date();
+                Date WB_meta_ModifiedDate = new Date();
+                int WB_meta_Audit_Inserted = 0;
+                int WB_meta_IsCurrent = 1;
+                int WB_meta_Audit_Updated = 0;
+                String WB_meta_API_Version = null;
+                int WB_KEY_CHECK_SUM = 0;
+                int WB_CHECK_SUM = 0;
+
+
+                WagerBoard wagerBoardEnt = new WagerBoard(WB_meta_transactionID, WB_meta_sequenceID, WB_WagerIdentification, WB_BoardNumber, WB_FractionGameType, WB_FractionParentDividedCount, WB_FractionParentOrChild, WB_FractionParentWagerIdentification, WB_FractionsBought, WB_GameIdentification, WB_TransactionIdentification, WB_meta_CreatedDate, WB_meta_FromDate, WB_meta_ToDate, WB_meta_InsertedDate, WB_meta_ModifiedDate, WB_meta_Audit_Inserted, WB_meta_IsCurrent, WB_meta_Audit_Updated, WB_meta_API_Version, WB_KEY_CHECK_SUM, WB_CHECK_SUM);
+                wagerBoardsList.add(wagerBoardEnt);
+
+                // WAGER BOARD MARKS
+                int currentSequenceNumber = 1;
+                for (int k = 1; k < 8; k++) {
+
+                    int currentMarkNumber = getRandomMarkNumber();
+
+                    String WBM_meta_transactionID = randomID;
+                    String WBM_meta_sequenceID = null;
+                    String WBM_WagerIdentification = randomID; // KEY
+                    int WBM_MarkSequenceNumber = currentSequenceNumber; // KEY
+                    int WBM_MarkNumber = currentMarkNumber;
+                    String WBM_GameIdentification = "011-000000034"; // KEY
+                    int WBM_BoardNumber = currentBoardNumber; // KEY
+                    Date WBM_meta_CreatedDate = new Date(); // KEY
+                    Date WBM_meta_FromDate = new Date();
+                    Date WBM_meta_ToDate = new Date();
+                    Date WBM_meta_InsertedDate = new Date();
+                    Date WBM_meta_ModifiedDate = new Date();
+                    int WBM_meta_Audit_Inserted = 0;
+                    int WBM_meta_IsCurrent = 1;
+                    int WBM_meta_Audit_Updated = 0;
+                    String WBM_meta_API_Version = null;
+                    int WBM_KEY_CHECK_SUM = 0;
+                    int WBM_CHECK_SUM = 0;
+
+                    markNumbersOnCurrentBoard.add(currentBoardNumber);
+                    currentSequenceNumber++;
+
+                    WagerBoardMarks wagerBoardMarksEnt = new WagerBoardMarks(WBM_meta_transactionID, WBM_meta_sequenceID, WBM_WagerIdentification, WBM_MarkSequenceNumber, WBM_MarkNumber, WBM_GameIdentification, WBM_BoardNumber, WBM_meta_CreatedDate, WBM_meta_FromDate, WBM_meta_ToDate, WBM_meta_InsertedDate, WBM_meta_ModifiedDate, WBM_meta_Audit_Inserted, WBM_meta_IsCurrent, WBM_meta_Audit_Updated, WBM_meta_API_Version, WBM_KEY_CHECK_SUM, WBM_CHECK_SUM);
+                    wagerBoardMarksList.add(wagerBoardMarksEnt);
+                }
+
+                currentBoardNumber++;
+                markNumbersOnCurrentBoard.clear();
+            }
         }
 
+    }
 
-        // WAGER BOARD
-        for (int j = 1; j < 101; j++) {
+    @Override
+    public void run(String... args) throws Exception {
 
-            String WB_meta_transactionID = null;
-            String WB_meta_sequenceID = null;
-            String WB_WagerIdentification = ""; // KEY
-            int WB_BoardNumber = 0; // KEY
-            long WB_FractionGameType = 0;
-            long WB_FractionParentDividedCount = 0;
-            long WB_FractionParentOrChild = 0;
-            String WB_FractionParentWagerIdentification = null;
-            long WB_FractionsBought = 0;
-            String WB_GameIdentification = "011-000000034"; // KEY
-            String WB_TransactionIdentification = "";
-            Date WB_meta_CreatedDate = new Date(); // KEY
-            Date WB_meta_FromDate = new Date();
-            Date WB_meta_ToDate = new Date();
-            Date WB_meta_InsertedDate = new Date();
-            Date WB_meta_ModifiedDate = new Date();
-            int WB_meta_Audit_Inserted = 0;
-            int WB_meta_IsCurrent = 1;
-            int WB_meta_Audit_Updated = 0;
-            String WB_meta_API_Version = null;
-            int WB_KEY_CHECK_SUM = 0;
-            int WB_CHECK_SUM = 0;
+        System.out.println("saving ents...");
+        /*
+        generateTestData();
 
-            // create and add
 
-            // WAGER BOARD MARKS
+        try {
 
+            PGTrepo.save(poolgameTransactionList);
+            WBrepo.save(wagerBoardsList);
+            WBMrepo.save(wagerBoardMarksList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-
-        for (int k = 1; k < 701; k++) {
-
-            // WBM_meta_transactionID;
-            // WBM_meta_sequenceID;
-            // WBM_WagerIdentification;
-            int WBM_MarkSequenceNumber = 0;
-            int WBM_MarkNumber = 0;
-            //WBM_GameIdentification;
-            //WBM_BoardNumber;
-            //WBM_meta_CreatedDate;
-            //WBM_meta_FromDate;
-            //WBM_meta_ToDate;
-            //WBM_meta_InsertedDate;
-            //WBM_meta_ModifiedDate;
-            //WBM_meta_Audit_Inserted;
-            //WBM_meta_IsCurrent;
-            //WBM_meta_Audit_Updated;
-            //WBM_meta_API_Version;
-            //WBM_KEY_CHECK_SUM;
-            //WBM_CHECK_SUM;
-
-            // create and add
-        }
+        */
     }
 }
 
