@@ -3,42 +3,53 @@ package com.anders.cphbusiness.Model.SecondaryModel;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Sort;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
+@IdClass(PK_StoreDbEnt.class)
 public class StoreDbEnt {
 
     // FIELDS
-    int BoardNumber;
     @Id
     @Column(columnDefinition = "nvarchar(20)")
-    String GameIdentification;
-    int MarkSequenceNumber;
-    int MarkNumber;
+    private String WagerIdentification;
+    @Id
+    private int BoardNumber;
+    @Id
+    private int MarkSequenceNumber;
+    @Id
+    private int MarkNumber;
+    @Column(columnDefinition = "bigint")
+    private long CouponTypeIdentification;
+    @Column(columnDefinition = "bigint")
+    private long WagerBoardQuickPickMarksBoard;
 
     protected StoreDbEnt() {
 
     }
 
-    public StoreDbEnt(int BoardNumber, String GameIdentification, int MarkSequenceNumber, int MarkNumber) {
-        this.BoardNumber = BoardNumber;
-        this.GameIdentification = GameIdentification;
-        this.MarkSequenceNumber = MarkSequenceNumber;
-        this.MarkNumber = MarkNumber;
+    public StoreDbEnt(String WagerIdentification, int BoardNumber,int MarkSequenceNumber, int MarkNumber, long CouponTypeIdentification, long WagerBoardQuickPickMarksBoard ) {
+    this.WagerIdentification = WagerIdentification;
+    this.BoardNumber = BoardNumber;
+    this.MarkSequenceNumber = MarkSequenceNumber;
+    this.MarkNumber = MarkNumber;
+    this.CouponTypeIdentification = CouponTypeIdentification;
+    this.WagerBoardQuickPickMarksBoard = WagerBoardQuickPickMarksBoard;
     }
 
     @Override
     public String toString() {
         return "StoreDbEnt{" +
-                "BoardNumber=" + BoardNumber +
-                ", GameIdentification='" + GameIdentification + '\'' +
+                "WagerIdentification='" + WagerIdentification + '\'' +
+                ", BoardNumber=" + BoardNumber +
                 ", MarkSequenceNumber=" + MarkSequenceNumber +
                 ", MarkNumber=" + MarkNumber +
+                ", CouponTypeIdentification=" + CouponTypeIdentification +
+                ", WagerBoardQuickPickMarksBoard=" + WagerBoardQuickPickMarksBoard +
                 '}';
     }
 }

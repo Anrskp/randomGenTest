@@ -18,7 +18,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DbSeederCtrlTest implements CommandLineRunner {
+public class DbSeederCtrl implements CommandLineRunner {
 
     private static Random randomNumber = new Random();
 
