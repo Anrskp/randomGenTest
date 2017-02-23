@@ -3,10 +3,7 @@ package com.anders.cphbusiness.Model.PrimaryModel;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -15,6 +12,15 @@ import java.util.Date;
 @Entity
 @IdClass(PK_WagerBoardMarks.class)
 public class WagerBoardMarks {
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumns({
+            @JoinColumn(name = "BoardNumber", insertable = false, updatable = false),
+            @JoinColumn(name = "GameIdentification", insertable = false, updatable = false),
+            @JoinColumn(name = "WagerIdentification", insertable = false, updatable = false),
+            @JoinColumn(name = "meta_CreatedDate", insertable = false, updatable = false)
+    })
+    private WagerBoard wagerBoard;
 
     // FIELDS
     @Column(columnDefinition = "nvarchar(50)")

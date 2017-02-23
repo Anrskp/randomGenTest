@@ -15,7 +15,6 @@ import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardMarksRepo;
 import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -44,7 +43,8 @@ public class DbSeederCtrlTest implements CommandLineRunner {
     private int getRandomMarkNumber() {
 
         int rn = randomNumber.nextInt(46) + 1;
-        while(markNumbersOnCurrentBoard.contains(rn)) {
+        // avoid duplicates on same board
+        while (markNumbersOnCurrentBoard.contains(rn)) {
             rn = randomNumber.nextInt(46) + 1;
         }
         return rn;
@@ -190,16 +190,14 @@ public class DbSeederCtrlTest implements CommandLineRunner {
                 markNumbersOnCurrentBoard.clear();
             }
         }
-
     }
 
     @Override
     public void run(String... args) throws Exception {
 
-        System.out.println("saving ents...");
         /*
-        generateTestData();
 
+        generateTestData();
 
         try {
 
@@ -207,10 +205,17 @@ public class DbSeederCtrlTest implements CommandLineRunner {
             WBrepo.save(wagerBoardsList);
             WBMrepo.save(wagerBoardMarksList);
 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        poolgameTransactionList.clear();
+        wagerBoardsList.clear();
+        wagerBoardMarksList.clear();
+
         */
+
     }
 }
 

@@ -4,13 +4,18 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @IdClass(PK_poolgameTransaction.class)
 public class PoolgameTransaction {
+
+    @OneToMany(mappedBy = "poolgameTransaction")
+    private List<WagerBoard> ListOfWagers = new ArrayList<>();
 
     // FIELDS
     @Column(columnDefinition = "nvarchar(50)")

@@ -3,18 +3,26 @@ package com.anders.cphbusiness.Model.PrimaryModel;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @IdClass(PK_wagerBoard.class)
 public class WagerBoard {
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumns({
+            @JoinColumn(name = "TransactionIdentification", insertable = false, updatable = false),
+            @JoinColumn(name = "meta_CreatedDate", insertable = false, updatable = false)
+    })
+    private PoolgameTransaction poolgameTransaction;
+
+    @OneToMany(mappedBy = "wagerBoard")
+    private List<WagerBoardMarks> listOfWagerMarks;
 
     // FIELDS
     @Column(columnDefinition = "nvarchar(50) default 'null'")

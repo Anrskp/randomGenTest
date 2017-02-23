@@ -1,7 +1,6 @@
 package com.anders.cphbusiness.Controller;
 
 import com.anders.cphbusiness.Model.TestResultsModel.JsonResponse;
-import org.apache.catalina.connector.Response;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
