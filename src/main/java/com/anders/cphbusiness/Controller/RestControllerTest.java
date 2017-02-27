@@ -43,15 +43,12 @@ public class RestControllerTest {
             dates.add(wagerBoardMarks.getMeta_CreatedDate());
         }
 
-        /*
-        StoreDbEnt test = new StoreDbEnt(4,"test", 5,5);
-        storeRepo.save(test);
-        */
 
         // get sample from-to dates
         Collections.sort(dates);
         Date fromDate = dates.get(0);
         Date toDate = dates.get(dates.size() - 1);
+
 
         boolean runsTestRes = testCtrl.runsTest(randomNumbers).isTestConclusion();
         boolean occurrenceTestRes = testCtrl.occurrencesTest(randomNumbers);

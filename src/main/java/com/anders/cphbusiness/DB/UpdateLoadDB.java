@@ -1,12 +1,5 @@
-/*
-package com.anders.cphbusiness.Controller;
+package com.anders.cphbusiness.DB;
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
 
 import com.anders.cphbusiness.Model.PrimaryModel.PoolgameTransaction;
 import com.anders.cphbusiness.Model.PrimaryModel.WagerBoard;
@@ -15,11 +8,16 @@ import com.anders.cphbusiness.Repositories.primaryRepo.PoolgameTransactionRepo;
 import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardMarksRepo;
 import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 @Component
-public class DbSeederCtrl implements CommandLineRunner {
+public class UpdateLoadDB {
 
     private static Random randomNumber = new Random();
 
@@ -30,12 +28,15 @@ public class DbSeederCtrl implements CommandLineRunner {
     @Autowired
     WagerBoardMarksRepo WBMrepo;
 
+
     private List<Integer> markNumbersOnCurrentBoard = new ArrayList<>();
     private List<WagerBoard> wagerBoardsList = new ArrayList<>();
     private List<WagerBoardMarks> wagerBoardMarksList = new ArrayList<>();
     private List<PoolgameTransaction> poolgameTransactionList = new ArrayList<>();
 
     private SecureRandom random = new SecureRandom();
+    private Date dateToInsert = new Date();
+
 
     private String nextSessionId() {
         return new BigInteger(60, random).toString();
@@ -50,6 +51,17 @@ public class DbSeederCtrl implements CommandLineRunner {
         }
         return rn;
     }
+
+    private void getDateToInsert() {
+        // get latest date if any data in db.
+        List<PoolgameTransaction> currentPGTs = PGTrepo.findAll();
+        if (currentPGTs.size() > 0) {
+            System.out.println(currentPGTs);
+        } else {
+            dateToInsert = new Date();
+        }
+    }
+
 
     private void generateTestData() {
 
@@ -86,7 +98,7 @@ public class DbSeederCtrl implements CommandLineRunner {
             String PGT_SalesChannelData = "";
             String PGT_SalesChannelIdentification = "";
             long PGT_TerminalNumber = 0;
-            Date PGT_TransactionDatetime = new Date();
+            Date PGT_TransactionDatetime = dateToInsert;
             String PGT_TransactionIdentification = randomID; // KEY
             String PGT_TransactionState = "";
             long PGT_TransactionType = 0;
@@ -108,10 +120,10 @@ public class DbSeederCtrl implements CommandLineRunner {
             long PGT_WagerHeaderFreeTicket = 0;
             String PGT_WagerHeaderLastDrawNumber = "";
             String PGT_WagerHeaderStartDrawNumber = "";
-            Date PGT_meta_CreatedDate = new Date(); // KEY
-            Date PGT_meta_FromDate = new Date();
-            Date PGT_meta_ToDate = new Date();
-            Date PGT_meta_InsertedDate = new Date();
+            Date PGT_meta_CreatedDate = dateToInsert; // KEY
+            Date PGT_meta_FromDate = dateToInsert;
+            Date PGT_meta_ToDate = dateToInsert;
+            Date PGT_meta_InsertedDate = dateToInsert;
             int PGT_meta_Audit_Inserted = 0;
             int PGT_meta_IsCurrent = 1;
             int PGT_meta_Audit_Updated = 1;
@@ -139,11 +151,11 @@ public class DbSeederCtrl implements CommandLineRunner {
                 long WB_FractionsBought = 0;
                 String WB_GameIdentification = "011-000000034"; // KEY
                 String WB_TransactionIdentification = randomID;
-                Date WB_meta_CreatedDate = new Date(); // KEY
-                Date WB_meta_FromDate = new Date();
-                Date WB_meta_ToDate = new Date();
-                Date WB_meta_InsertedDate = new Date();
-                Date WB_meta_ModifiedDate = new Date();
+                Date WB_meta_CreatedDate = dateToInsert; // KEY
+                Date WB_meta_FromDate = dateToInsert;
+                Date WB_meta_ToDate = dateToInsert;
+                Date WB_meta_InsertedDate = dateToInsert;
+                Date WB_meta_ModifiedDate = dateToInsert;
                 int WB_meta_Audit_Inserted = 0;
                 int WB_meta_IsCurrent = 1;
                 int WB_meta_Audit_Updated = 0;
@@ -168,11 +180,11 @@ public class DbSeederCtrl implements CommandLineRunner {
                     int WBM_MarkNumber = currentMarkNumber;
                     String WBM_GameIdentification = "011-000000034"; // KEY
                     int WBM_BoardNumber = currentBoardNumber; // KEY
-                    Date WBM_meta_CreatedDate = new Date(); // KEY
-                    Date WBM_meta_FromDate = new Date();
-                    Date WBM_meta_ToDate = new Date();
-                    Date WBM_meta_InsertedDate = new Date();
-                    Date WBM_meta_ModifiedDate = new Date();
+                    Date WBM_meta_CreatedDate = dateToInsert; // KEY
+                    Date WBM_meta_FromDate = dateToInsert;
+                    Date WBM_meta_ToDate = dateToInsert;
+                    Date WBM_meta_InsertedDate = dateToInsert;
+                    Date WBM_meta_ModifiedDate = dateToInsert;
                     int WBM_meta_Audit_Inserted = 0;
                     int WBM_meta_IsCurrent = 1;
                     int WBM_meta_Audit_Updated = 0;
@@ -190,35 +202,35 @@ public class DbSeederCtrl implements CommandLineRunner {
                 currentBoardNumber++;
                 markNumbersOnCurrentBoard.clear();
             }
+
+            dateToInsert = new Date(dateToInsert.getTime() + TimeUnit.DAYS.toMillis(1));
         }
     }
 
-    @Override
-    public void run(String... args) throws Exception {
+    @Scheduled(fixedRate = 600000)
+    public void generateData() {
 
+        List<PoolgameTransaction> PGTs = PGTrepo.findAll();
+        List<Date> PGTdates = new ArrayList<>();
 
-
-        generateTestData();
-
-        try {
-
-            PGTrepo.save(poolgameTransactionList);
-            WBrepo.save(wagerBoardsList);
-            WBMrepo.save(wagerBoardMarksList);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        for (PoolgameTransaction PGT : PGTs) {
+            PGTdates.add(PGT.getMeta_InsertedDate());
         }
 
+        PGTdates.sort(Comparator.naturalOrder());
+        System.out.println("latest date : " + PGTdates.get(PGTs.size() - 1));
+
+        /*
+        generateTestData();
+
+        PGTrepo.save(poolgameTransactionList);
+        WBrepo.save(wagerBoardsList);
+        WBMrepo.save(wagerBoardMarksList);
+        */
         poolgameTransactionList.clear();
         wagerBoardsList.clear();
         wagerBoardMarksList.clear();
 
-
-
     }
+
 }
-
-*/
-

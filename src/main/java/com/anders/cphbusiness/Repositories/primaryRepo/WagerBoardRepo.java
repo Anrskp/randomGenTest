@@ -1,7 +1,6 @@
 package com.anders.cphbusiness.Repositories.primaryRepo;
 
 import com.anders.cphbusiness.Model.PrimaryModel.WagerBoard;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -20,8 +19,8 @@ public interface WagerBoardRepo extends JpaRepository<WagerBoard, String> {
             "inner join wb.poolgameTransaction pt  " +
             "where wb.WagerIdentification = wm.WagerIdentification and wb.BoardNumber = wm.BoardNumber and wb.GameIdentification = wm.GameIdentification and wm.meta_IsCurrent = 1 " +
             "and wb.TransactionIdentification = pt.TransactionIdentification and pt.meta_IsCurrent = 1 " +
-            "and (wb.meta_IsCurrent = 1) " +
-            "order by wm.WagerIdentification desc, wm.BoardNumber desc, wm.MarkNumber desc")
+            "and (wb.meta_IsCurrent = 1) ")
+            //+ "order by wm.WagerIdentification desc, wm.BoardNumber desc, wm.MarkNumber desc")
 
     List<Object[]> findAllTest();
 

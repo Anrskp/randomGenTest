@@ -16,40 +16,41 @@ public class StoreDbEnt {
     // FIELDS
     @Id
     @Column(columnDefinition = "nvarchar(20)")
-    private String WagerIdentification;
+    private String wagerIdentification;
     @Id
-    private int BoardNumber;
+    private int boardNumber;
     @Id
-    private int MarkSequenceNumber;
+    private int markSequenceNumber;
     @Id
-    private int MarkNumber;
+    private int markNumber;
     @Column(columnDefinition = "bigint")
-    private long CouponTypeIdentification;
+    private long couponTypeIdentification;
     @Column(columnDefinition = "bigint")
-    private long WagerBoardQuickPickMarksBoard;
+    private long wagerBoardQuickPickMarksBoard;
 
     protected StoreDbEnt() {
 
     }
 
-    public StoreDbEnt(String WagerIdentification, int BoardNumber,int MarkSequenceNumber, int MarkNumber, long CouponTypeIdentification, long WagerBoardQuickPickMarksBoard ) {
-    this.WagerIdentification = WagerIdentification;
-    this.BoardNumber = BoardNumber;
-    this.MarkSequenceNumber = MarkSequenceNumber;
-    this.MarkNumber = MarkNumber;
-    this.CouponTypeIdentification = CouponTypeIdentification;
-    this.WagerBoardQuickPickMarksBoard = WagerBoardQuickPickMarksBoard;
+    public StoreDbEnt(String wagerIdentification, int boardNumber,int markSequenceNumber, int markNumber, long couponTypeIdentification, long wagerBoardQuickPickMarksBoard ) {
+    this.wagerIdentification = wagerIdentification;
+    this.boardNumber = boardNumber;
+    this.markSequenceNumber = markSequenceNumber;
+    this.markNumber = markNumber;
+    this.couponTypeIdentification = couponTypeIdentification;
+    this.wagerBoardQuickPickMarksBoard = wagerBoardQuickPickMarksBoard;
     }
+
 
     @Override
     public String toString() {
         return "StoreDbEnt{" +
-                "WagerIdentification='" + WagerIdentification + '\'' +
-                ", BoardNumber=" + BoardNumber +
-                ", MarkSequenceNumber=" + MarkSequenceNumber +
-                ", MarkNumber=" + MarkNumber +
-                ", CouponTypeIdentification=" + CouponTypeIdentification +
-                ", WagerBoardQuickPickMarksBoard=" + WagerBoardQuickPickMarksBoard +
+                "wagerIdentification='" + wagerIdentification + '\'' +
+                ", boardNumber=" + boardNumber +
+                ", markSequenceNumber=" + markSequenceNumber +
+                ", markNumber=" + markNumber +
+                ", couponTypeIdentification=" + couponTypeIdentification +
+                ", wagerBoardQuickPickMarksBoard=" + wagerBoardQuickPickMarksBoard +
                 '}';
     }
 }

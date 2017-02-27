@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 
 public class PK_StoreDbEnt implements Serializable {
-    private String WagerIdentification;
-    private int MarkNumber;
-    private int MarkSequenceNumber;
-    private int BoardNumber;
+    private String wagerIdentification;
+    private int markNumber;
+    private int markSequenceNumber;
+    private int boardNumber;
 
 }
