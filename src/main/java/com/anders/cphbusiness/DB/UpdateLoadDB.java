@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class UpdateLoadDB {
 
-    private static Random randomNumber = new Random();
+
 
     @Autowired
     PoolgameTransactionRepo PGTrepo;
@@ -37,6 +37,7 @@ public class UpdateLoadDB {
     private List<WagerBoardMarks> wagerBoardMarksList = new ArrayList<>();
     private List<PoolgameTransaction> poolgameTransactionList = new ArrayList<>();
 
+    private static Random randomNumber = new Random();
     private SecureRandom random = new SecureRandom();
     private Date dateToInsert = new Date();
 
@@ -46,8 +47,8 @@ public class UpdateLoadDB {
     }
 
     private int getRandomMarkNumber() {
-
         int rn = randomNumber.nextInt(46) + 1;
+
         // avoid duplicates on same board
         while (markNumbersOnCurrentBoard.contains(rn)) {
             rn = randomNumber.nextInt(46) + 1;
@@ -55,7 +56,6 @@ public class UpdateLoadDB {
         return rn;
     }
 
-    
     private void generateTestData() {
 
         // POOL GAME TRANSACTIONS
@@ -218,7 +218,6 @@ public class UpdateLoadDB {
         poolgameTransactionList.clear();
         wagerBoardsList.clear();
         wagerBoardMarksList.clear();
-
     }
 
 }
