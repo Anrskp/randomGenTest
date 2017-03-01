@@ -1,6 +1,5 @@
 package com.anders.cphbusiness.Controller;
 
-import com.anders.cphbusiness.Model.PrimaryModel.WagerBoardMarks;
 import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
 import com.anders.cphbusiness.Model.TestResultsModel.JsonResponse;
 import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardMarksRepo;
@@ -32,15 +31,9 @@ public class RestControllerTest {
     JsonResponse rngCheck() {
 
         ArrayList<Integer> randomNumbers = new ArrayList<>();
-        ArrayList<WagerBoardMarks> seq = new ArrayList<>();
+        // ArrayList<WagerBoardMarks> seq = new ArrayList<>();
         ArrayList<java.util.Date> dates = new ArrayList<>();
-        /*
-        for (WagerBoardMarks wagerBoardMarks : loadRepo.findAll()) {
-            seq.add(wagerBoardMarks);
-            randomNumbers.add(wagerBoardMarks.getMarkNumber());
-            dates.add(wagerBoardMarks.getMeta_CreatedDate());
-        }
-        */
+
 
         List<StoreDbEnt> data = storeRepo.findAll();
         for (StoreDbEnt aData : data) {
@@ -48,12 +41,10 @@ public class RestControllerTest {
             dates.add(aData.getInsertedDate());
         }
 
-
         // get sample from-to dates
         Collections.sort(dates);
         Date fromDate = dates.get(0);
         Date toDate = dates.get(dates.size() - 1);
-
 
         boolean runsTestRes = testCtrl.runsTest(randomNumbers).isTestConclusion();
         boolean occurrenceTestRes = testCtrl.occurrencesTest(randomNumbers);
