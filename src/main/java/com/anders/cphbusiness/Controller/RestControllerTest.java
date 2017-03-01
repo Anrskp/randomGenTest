@@ -1,19 +1,17 @@
 package com.anders.cphbusiness.Controller;
 
+import com.anders.cphbusiness.Model.PrimaryModel.WagerBoardMarks;
+import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
 import com.anders.cphbusiness.Model.TestResultsModel.JsonResponse;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardMarksRepo;
+import com.anders.cphbusiness.Repositories.secondaryRepo.StoreDbEntRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardMarksRepo;
-import com.anders.cphbusiness.Model.PrimaryModel.*;
-import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
-import com.anders.cphbusiness.Repositories.secondaryRepo.StoreDbEntRepo;
-
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 @RestController
 public class RestControllerTest {
@@ -36,11 +34,18 @@ public class RestControllerTest {
         ArrayList<Integer> randomNumbers = new ArrayList<>();
         ArrayList<WagerBoardMarks> seq = new ArrayList<>();
         ArrayList<java.util.Date> dates = new ArrayList<>();
-
+        /*
         for (WagerBoardMarks wagerBoardMarks : loadRepo.findAll()) {
             seq.add(wagerBoardMarks);
             randomNumbers.add(wagerBoardMarks.getMarkNumber());
             dates.add(wagerBoardMarks.getMeta_CreatedDate());
+        }
+        */
+
+        List<StoreDbEnt> data = storeRepo.findAll();
+        for (StoreDbEnt aData : data) {
+            randomNumbers.add(aData.getMarkNumber());
+            dates.add(aData.getInsertedDate());
         }
 
 
@@ -52,15 +57,16 @@ public class RestControllerTest {
 
         boolean runsTestRes = testCtrl.runsTest(randomNumbers).isTestConclusion();
         boolean occurrenceTestRes = testCtrl.occurrencesTest(randomNumbers);
-        boolean boardSeqTestRes = testCtrl.boardSeqTest(seq);
+        //boolean boardSeqTestRes = testCtrl.boardSeqTest(seq);
 
-        boolean testResults = runsTestRes && occurrenceTestRes && boardSeqTestRes;
+        boolean testResults = runsTestRes && occurrenceTestRes;
 
         if (testResults) {
             return new JsonResponse(true, "Success", fromDate, toDate);
         } else
             return new JsonResponse(false, "Failure", fromDate, toDate);
     }
+
 
     // test request params
     @RequestMapping(value = "/test", method = RequestMethod.GET)

@@ -13,7 +13,10 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -210,23 +213,18 @@ public class UpdateLoadDB {
     @Scheduled(fixedRate = 600000)
     public void generateData() {
 
-        List<PoolgameTransaction> PGTs = PGTrepo.findAll();
-        List<Date> PGTdates = new ArrayList<>();
-
-        for (PoolgameTransaction PGT : PGTs) {
-            PGTdates.add(PGT.getMeta_InsertedDate());
+        // get date from last point if any.
+        Date newestDate = WBrepo.findMaxDate();
+        if (newestDate != null) {
+            dateToInsert = new Date(newestDate.getTime() + TimeUnit.DAYS.toMillis(1));
         }
 
-        PGTdates.sort(Comparator.naturalOrder());
-        System.out.println("latest date : " + PGTdates.get(PGTs.size() - 1));
-
-        /*
         generateTestData();
 
         PGTrepo.save(poolgameTransactionList);
         WBrepo.save(wagerBoardsList);
         WBMrepo.save(wagerBoardMarksList);
-        */
+
         poolgameTransactionList.clear();
         wagerBoardsList.clear();
         wagerBoardMarksList.clear();

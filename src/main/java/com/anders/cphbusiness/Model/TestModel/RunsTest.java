@@ -72,8 +72,6 @@ public class RunsTest {
             nTWO = Collections.frequency(sortedRuns, 'A');
         }
 
-        // System.out.println("n1 = " + nONE + " n2 = " + nTWO + " amount of runs : " + runsAmount);
-
         // calculate U, O and then Z for 'runs test' formula
         u = ((2f * nONE * nTWO) / (nONE + nTWO)) + 1f;
         o = Math.sqrt(((2d * nONE * nTWO) * (2d * nONE * nTWO - nONE - nTWO)) / (Math.pow(nONE + nTWO, 2d) * (nONE + nTWO - 1d)));
