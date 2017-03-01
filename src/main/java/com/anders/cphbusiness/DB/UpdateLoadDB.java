@@ -55,17 +55,7 @@ public class UpdateLoadDB {
         return rn;
     }
 
-    private void getDateToInsert() {
-        // get latest date if any data in db.
-        List<PoolgameTransaction> currentPGTs = PGTrepo.findAll();
-        if (currentPGTs.size() > 0) {
-            System.out.println(currentPGTs);
-        } else {
-            dateToInsert = new Date();
-        }
-    }
-
-
+    
     private void generateTestData() {
 
         // POOL GAME TRANSACTIONS
@@ -210,7 +200,7 @@ public class UpdateLoadDB {
         }
     }
 
-    @Scheduled(fixedRate = 600000)
+    @Scheduled(fixedRate = 600000000)
     public void generateData() {
 
         // get date from last point if any.
