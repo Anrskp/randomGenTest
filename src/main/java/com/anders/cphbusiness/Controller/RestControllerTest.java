@@ -2,6 +2,7 @@ package com.anders.cphbusiness.Controller;
 
 import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
 import com.anders.cphbusiness.Model.TestResultsModel.JsonResponse;
+import com.anders.cphbusiness.Model.TestResultsModel.testJson;
 import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardMarksRepo;
 import com.anders.cphbusiness.Repositories.secondaryRepo.StoreDbEntRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,6 @@ import java.util.List;
 public class RestControllerTest {
 
     // FIELDS
-    @Autowired
-    private WagerBoardMarksRepo loadRepo;
-
     @Autowired
     private StoreDbEntRepo storeRepo;
 
@@ -52,10 +50,12 @@ public class RestControllerTest {
 
         boolean testResults = runsTestRes && occurrenceTestRes;
 
+        testJson a = new testJson(1,"asd");
+
         if (testResults) {
-            return new JsonResponse(true, "Success", fromDate, toDate);
+            return new JsonResponse(true, "Success", fromDate, toDate, a);
         } else
-            return new JsonResponse(false, "Failure", fromDate, toDate);
+            return new JsonResponse(false, "Failure", fromDate, toDate, a);
     }
 
 

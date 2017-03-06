@@ -21,7 +21,6 @@ public interface WagerBoardRepo extends JpaRepository<WagerBoard, String> {
             "where wb.WagerIdentification = wm.WagerIdentification and wb.BoardNumber = wm.BoardNumber and wb.GameIdentification = wm.GameIdentification and wm.meta_IsCurrent = 1 " +
             "and wb.TransactionIdentification = pt.TransactionIdentification and pt.meta_IsCurrent = 1 " +
             "and (wb.meta_IsCurrent = 1) ")
-            //+ "order by wm.WagerIdentification desc, wm.BoardNumber desc, wm.MarkNumber desc")
     List<Object[]> findAllTest();
 
 
@@ -33,7 +32,6 @@ public interface WagerBoardRepo extends JpaRepository<WagerBoard, String> {
             "where wb.WagerIdentification = wm.WagerIdentification and wb.BoardNumber = wm.BoardNumber and wb.GameIdentification = wm.GameIdentification and wm.meta_IsCurrent = 1 " +
             "and wb.TransactionIdentification = pt.TransactionIdentification and pt.meta_IsCurrent = 1 " +
             "and (wb.meta_IsCurrent = 1) and pt.meta_InsertedDate > ?1 ")
-        //+ "order by wm.WagerIdentification desc, wm.BoardNumber desc, wm.MarkNumber desc")
     List<Object[]> findAllFromDate(Date date);
 
 

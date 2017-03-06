@@ -8,6 +8,7 @@ import com.anders.cphbusiness.Repositories.primaryRepo.PoolgameTransactionRepo;
 import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardMarksRepo;
 import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,6 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class UpdateLoadDB {
-
 
 
     @Autowired
@@ -200,21 +200,26 @@ public class UpdateLoadDB {
         }
     }
 
-    @Scheduled(fixedRate = 600000000)
+    @Scheduled(fixedRate = 600000)
     public void generateData() {
 
-        // get date from last point if any.
+        // get date from last point if any. default is current day and time.
         Date newestDate = WBrepo.findMaxDate();
         if (newestDate != null) {
             dateToInsert = new Date(newestDate.getTime() + TimeUnit.DAYS.toMillis(1));
         }
-
+        /*
         generateTestData();
 
-        PGTrepo.save(poolgameTransactionList);
-        WBrepo.save(wagerBoardsList);
-        WBMrepo.save(wagerBoardMarksList);
-
+        try {
+            PGTrepo.save(poolgameTransactionList);
+            WBrepo.save(wagerBoardsList);
+            WBMrepo.save(wagerBoardMarksList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        */
+        
         poolgameTransactionList.clear();
         wagerBoardsList.clear();
         wagerBoardMarksList.clear();

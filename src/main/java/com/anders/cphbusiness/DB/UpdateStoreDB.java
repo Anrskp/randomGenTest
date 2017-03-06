@@ -4,6 +4,7 @@ import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
 import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardRepo;
 import com.anders.cphbusiness.Repositories.secondaryRepo.StoreDbEntRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +20,6 @@ public class UpdateStoreDB {
 
     @Autowired
     private StoreDbEntRepo storeRepo;
-
 
     @Scheduled(fixedRate = 600000) // ~ 600k milli sec = 10min.
     public void update() {
@@ -44,6 +44,7 @@ public class UpdateStoreDB {
                 saveInput.add(newEnt);
             }
 
+
             try {
                 System.out.println("fetching data from ADA to storeDB");
                 if (saveInput.size() == 0) {
@@ -60,6 +61,5 @@ public class UpdateStoreDB {
             }
         }
 */
-
     }
 }
