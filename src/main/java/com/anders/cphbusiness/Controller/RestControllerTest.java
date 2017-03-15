@@ -29,18 +29,16 @@ public class RestControllerTest {
     @ResponseBody
     JsonResponseTest rngCheck() {
 
-        /*
-        Date asd = new Date();
-        System.out.println("from " + asd);
-        Date asd2 = new Date(asd.getTime() - TimeUnit.DAYS.toMillis(7));
-        System.out.println("seven days earlier " + asd2);
-        System.out.println(storeRepo.findWeekOld(asd, asd2).size());
-        */
+        int daysEarlier = 2;
+
+        Date dataFromDate = new Date();
+        Date dataToDate = new Date(dataFromDate.getTime() - TimeUnit.DAYS.toMillis(daysEarlier));
+
+        System.out.println(storeRepo.findWeekOld(dataToDate, dataFromDate));
 
         ArrayList<Integer> randomNumbers = new ArrayList<>();
         ArrayList<StoreDbEnt> storeDbEnts = new ArrayList<>();
         ArrayList<java.util.Date> dates = new ArrayList<>();
-
 
         List<StoreDbEnt> data = storeRepo.findAll(new Sort("WagerIdentification", "boardNumber", "markSequenceNumber"));
         for (StoreDbEnt aData : data) {
