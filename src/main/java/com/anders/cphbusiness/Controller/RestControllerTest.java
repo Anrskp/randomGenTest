@@ -1,17 +1,18 @@
 package com.anders.cphbusiness.Controller;
 
 import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
-import com.anders.cphbusiness.Model.TestResultsModel.JsonResponse;
-import com.anders.cphbusiness.Model.TestResultsModel.testJson;
-import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardMarksRepo;
+import com.anders.cphbusiness.Model.TestResultsModel.*;
 import com.anders.cphbusiness.Repositories.secondaryRepo.StoreDbEntRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
+import com.anders.cphbusiness.Model.TestResultsModel.JsonResponseTest;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 public class RestControllerTest {
@@ -26,36 +27,43 @@ public class RestControllerTest {
     @RequestMapping(value = "/rngCheck", method = RequestMethod.GET)
     public
     @ResponseBody
-    JsonResponse rngCheck() {
+    JsonResponseTest rngCheck() {
+
+        /*
+        Date asd = new Date();
+        System.out.println("from " + asd);
+        Date asd2 = new Date(asd.getTime() - TimeUnit.DAYS.toMillis(7));
+        System.out.println("seven days earlier " + asd2);
+        System.out.println(storeRepo.findWeekOld(asd, asd2).size());
+        */
 
         ArrayList<Integer> randomNumbers = new ArrayList<>();
-        // ArrayList<WagerBoardMarks> seq = new ArrayList<>();
+        ArrayList<StoreDbEnt> storeDbEnts = new ArrayList<>();
         ArrayList<java.util.Date> dates = new ArrayList<>();
 
 
-        List<StoreDbEnt> data = storeRepo.findAll();
+        List<StoreDbEnt> data = storeRepo.findAll(new Sort("WagerIdentification", "boardNumber", "markSequenceNumber"));
         for (StoreDbEnt aData : data) {
             randomNumbers.add(aData.getMarkNumber());
             dates.add(aData.getInsertedDate());
+            storeDbEnts.add(aData);
         }
+
+        System.out.println(storeDbEnts.size());
 
         // get sample from-to dates
         Collections.sort(dates);
         Date fromDate = dates.get(0);
         Date toDate = dates.get(dates.size() - 1);
 
-        boolean runsTestRes = testCtrl.runsTest(randomNumbers).isTestConclusion();
-        boolean occurrenceTestRes = testCtrl.occurrencesTest(randomNumbers);
-        //boolean boardSeqTestRes = testCtrl.boardSeqTest(seq);
+        RunsTestResult runsTest = testCtrl.runsTest(randomNumbers);
+        OccuTestResult occurrencesTest = testCtrl.occurrencesTest(randomNumbers);
+        BoardSeqTestResult combinationDuplicateTest = testCtrl.boardSeqTest(storeDbEnts);
 
-        boolean testResults = runsTestRes && occurrenceTestRes;
+        boolean allTestPassed = runsTest.isTestPassed() && occurrencesTest.isTestPassed() && combinationDuplicateTest.isTestPassed();
 
-        testJson a = new testJson(1,"asd");
+        return new JsonResponseTest(allTestPassed, fromDate, toDate, runsTest, occurrencesTest, combinationDuplicateTest);
 
-        if (testResults) {
-            return new JsonResponse(true, "Success", fromDate, toDate, a);
-        } else
-            return new JsonResponse(false, "Failure", fromDate, toDate, a);
     }
 
 

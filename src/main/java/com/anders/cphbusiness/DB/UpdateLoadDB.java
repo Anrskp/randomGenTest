@@ -8,7 +8,6 @@ import com.anders.cphbusiness.Repositories.primaryRepo.PoolgameTransactionRepo;
 import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardMarksRepo;
 import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -41,25 +40,39 @@ public class UpdateLoadDB {
     private SecureRandom random = new SecureRandom();
     private Date dateToInsert = new Date();
 
+    private String insertSalesChannel(int a) {
+        String res = "";
+
+        if (a == 1) {
+            res = "mobile";
+        } else if (a == 2) {
+            res = "web";
+        } else if (a == 3) {
+            res = "offline";
+        }
+
+        return res;
+    }
 
     private String nextSessionId() {
         return new BigInteger(60, random).toString();
     }
 
     private int getRandomMarkNumber() {
-        int rn = randomNumber.nextInt(46) + 1;
+        int rn = randomNumber.nextInt(36) + 1;
 
         // avoid duplicates on same board
         while (markNumbersOnCurrentBoard.contains(rn)) {
-            rn = randomNumber.nextInt(46) + 1;
+            rn = randomNumber.nextInt(36) + 1;
         }
         return rn;
     }
 
     private void generateTestData() {
-
+        int salesChannel = 1;
         // POOL GAME TRANSACTIONS
         for (int i = 1; i < 11; i++) {
+
 
             String randomID = nextSessionId();
             int currentBoardNumber = 1;
@@ -88,7 +101,7 @@ public class UpdateLoadDB {
             long PGT_ReceiptNumber = 0;
             long PGT_RejectIndicator = 0;
             String PGT_RetailerIdentification = "";
-            String PGT_SalesChannelData = "";
+            String PGT_SalesChannelData = insertSalesChannel(salesChannel);
             String PGT_SalesChannelIdentification = "";
             long PGT_TerminalNumber = 0;
             Date PGT_TransactionDatetime = dateToInsert;
@@ -128,6 +141,7 @@ public class UpdateLoadDB {
 
             PoolgameTransaction poolgameTransactionEnt = new PoolgameTransaction(PGT_meta_transactionID, PGT_meta_sequenceID, PGT_BetClassIdentification, PGT_BetTypeIdentification, PGT_CardType, PGT_CouponTypeIdentification, PGT_CustomerIdentification, PGT_DrawIdentification, PGT_FractionGameType, PGT_FractionParentDividedCount, PGT_FractionParentOrChild, PGT_FractionParentWagerIdentification, PGT_FractionsBought, PGT_GameIdentification, PGT_HoldIndicator, PGT_LinkDrawIdentification, PGT_LinkGameIdentification, PGT_LinkTransactionIdentification, PGT_PlayedByInternetIndicator, PGT_PrintRun, PGT_PrizeTypeIdentification, PGT_ReceiptNumber, PGT_RejectIndicator, PGT_RetailerIdentification, PGT_SalesChannelData, PGT_SalesChannelIdentification, PGT_TerminalNumber, PGT_TransactionDatetime, PGT_TransactionIdentification, PGT_TransactionState, PGT_TransactionType, PGT_TransactionValue, PGT_ValidationCashTicketIndicator, PGT_ValidationClaimTicketIndicator, PGT_ValidationExchangeIndicator, PGT_ValidationFreePrizeCashedIndicator, PGT_ValidationLastDrawNumberOfValidation, PGT_ValidationRefundTicketIndicator, PGT_ValidationType, PGT_WagerBoardQuickPickMarksBoard, PGT_WagerHeaderAddon1GameIdentification, PGT_WagerHeaderAddon1Value, PGT_WagerHeaderAddon2GameIdentification, PGT_WagerHeaderAddon2Value, PGT_WagerHeaderBoards, PGT_WagerHeaderDurationTransaction, PGT_WagerHeaderFreeTicket, PGT_WagerHeaderLastDrawNumber, PGT_WagerHeaderStartDrawNumber, PGT_meta_CreatedDate, PGT_meta_FromDate, PGT_meta_ToDate, PGT_meta_InsertedDate, PGT_meta_Audit_Inserted, PGT_meta_IsCurrent, PGT_meta_Audit_Updated, PGT_meta_API_Version, PGT_meta_Exported_AX, PGT_meta_Exported_BI, PGT_KEY_CHECK_SUM, PGT_CHECK_SUM);
             poolgameTransactionList.add(poolgameTransactionEnt);
+
 
             // WAGER BOARD
             for (int j = 1; j < 11; j++) {
@@ -195,6 +209,10 @@ public class UpdateLoadDB {
                 currentBoardNumber++;
                 markNumbersOnCurrentBoard.clear();
             }
+            salesChannel++;
+            if (salesChannel == 4) {
+                salesChannel = 1;
+            }
 
             dateToInsert = new Date(dateToInsert.getTime() + TimeUnit.DAYS.toMillis(1));
         }
@@ -202,14 +220,16 @@ public class UpdateLoadDB {
 
     @Scheduled(fixedRate = 600000)
     public void generateData() {
-
+        /*
         // get date from last point if any. default is current day and time.
         Date newestDate = WBrepo.findMaxDate();
         if (newestDate != null) {
             dateToInsert = new Date(newestDate.getTime() + TimeUnit.DAYS.toMillis(1));
         }
-        /*
+
         generateTestData();
+
+        long startTime = System.currentTimeMillis();
 
         try {
             PGTrepo.save(poolgameTransactionList);
@@ -218,11 +238,17 @@ public class UpdateLoadDB {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        */
-        
+
+        long endTime = System.currentTimeMillis();
+        long difference = endTime - startTime;
+
+        System.out.println(TimeUnit.MILLISECONDS.toMinutes(difference) + " minutes");
+        System.out.println(difference + " milliseconds");
+
         poolgameTransactionList.clear();
         wagerBoardsList.clear();
         wagerBoardMarksList.clear();
+        */
     }
 
 }

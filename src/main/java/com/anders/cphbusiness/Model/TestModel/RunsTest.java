@@ -78,15 +78,11 @@ public class RunsTest {
 
         z = (runsAmount - u) / o;
 
-        System.out.println("z value : " + z);
-
         // conclusion from rejection region ( a = .05, rejection region = a / 2 = 0.025 = -1.96 ~ 1.96 )
         if (z > -1.96 && z < 1.96) {
-            System.out.println("Success - Runs test can't reject that the stream of numbers is random");
-            return new RunsTestResult(u, z, o, true);
+            return new RunsTestResult(true, u, z, o);
         } else {
-            System.out.println("Failure - Runs test can reject that the stream of numbers is random");
-            return new RunsTestResult(u, z, o, false);
+            return new RunsTestResult(false, u, z, o);
         }
     }
 }

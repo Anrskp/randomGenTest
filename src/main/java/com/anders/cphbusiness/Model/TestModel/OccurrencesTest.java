@@ -1,6 +1,7 @@
 package com.anders.cphbusiness.Model.TestModel;
 
 import com.anders.cphbusiness.Model.TestResultsModel.NumbersInfo;
+import com.anders.cphbusiness.Model.TestResultsModel.OccuTestResult;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,11 +17,12 @@ public class OccurrencesTest {
     }
 
     // METHODS
-    public boolean occurrencesTester(ArrayList<Integer> rngNumbers) {
+    public OccuTestResult occurrencesTester(ArrayList<Integer> rngNumbers) {
         Collections.sort(rngNumbers);
 
         // find occurrences of each number
-        for (int i = 0; i < 99; i++) {
+        // numbers range 1-36
+        for (int i = 1; i < 37; i++) {
 
             int frequency = Collections.frequency(rngNumbers, i);
 
@@ -34,6 +36,7 @@ public class OccurrencesTest {
         // average occurrences
         int sumOfOccurrences = 0;
         int average;
+
         for (NumbersInfo aNumbersInfoList : numbersInfoList) {
             sumOfOccurrences += aNumbersInfoList.getOccurrences();
         }
@@ -49,6 +52,7 @@ public class OccurrencesTest {
             return 0;
         });
 
+        // set percent deviation
         for (NumbersInfo NumbersInfo : numbersInfoList) {
             int number = NumbersInfo.getNumber();
             int occurrenceValue = NumbersInfo.getOccurrences();
@@ -56,33 +60,26 @@ public class OccurrencesTest {
             float res = (float) (occurrenceValue - average) / (average) * 100;
             NumbersInfo.setPercentagesFromAverage(res);
 
-            if (res > 200 || res < -200) {
+
+            int maxPercentDeviationAccepted = 200;
+            if (res > maxPercentDeviationAccepted || res < -maxPercentDeviationAccepted) {
                 testAccepted = false;
-                System.out.println("number: " + number + " occurrences " + occurrenceValue + " percent above/below avarage: " + res );
             }
         }
 
-        System.out.println("");
+        ArrayList<NumbersInfo> lowest = new ArrayList<>();
+        ArrayList<NumbersInfo> highest = new ArrayList<>();
 
-        System.out.println("average occurrences of numbers : " + average + "\n");
+        // get highest and lowest number occurrences
+        for(int i = 0; i < 3; i++) {
+            lowest.add(numbersInfoList.get(i));
+            highest.add(numbersInfoList.get(numbersInfoList.size() - (i+1)));
+        }
 
-        System.out.println(" ** highest value detected **");
-        System.out.println("number : " + numbersInfoList.get(numbersInfoList.size() - 1).getNumber());
-        System.out.println("occurrences : " + numbersInfoList.get(numbersInfoList.size() - 1).getOccurrences());
-        System.out.println("percent from average : " + numbersInfoList.get(numbersInfoList.size() - 1).getPercentagesFromAverage() + "%");
+        OccuTestResult occuTestRes = new OccuTestResult(testAccepted, highest, lowest);
 
-        System.out.println("");
-
-        System.out.println(" ** lowest value detected **");
-        System.out.println("number : " + numbersInfoList.get(0).getNumber());
-        System.out.println("occurrences : " + numbersInfoList.get(0).getOccurrences());
-        System.out.println("percent from average : " + numbersInfoList.get(0).getPercentagesFromAverage() + "%");
-
-        System.out.println("");
-
-        return testAccepted;
+        return occuTestRes;
     }
-
 }
 
 

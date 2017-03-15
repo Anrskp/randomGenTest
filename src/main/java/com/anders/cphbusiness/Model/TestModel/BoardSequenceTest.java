@@ -1,6 +1,8 @@
 package com.anders.cphbusiness.Model.TestModel;
 
 import com.anders.cphbusiness.Model.PrimaryModel.WagerBoardMarks;
+import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
+import com.anders.cphbusiness.Model.TestResultsModel.BoardSeqTestResult;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,44 +16,39 @@ public class BoardSequenceTest {
     }
 
     //METHODS
-    public boolean checkBoardDups(ArrayList<WagerBoardMarks> seq) {
+    public BoardSeqTestResult checkBoardDups(ArrayList<StoreDbEnt> seq) {
         boolean noDups = true;
-
-        // sort by wager identification
-        seq.sort((number1, number2) -> {
-            if (Long.parseLong(number1.getWagerIdentification()) > Long.parseLong(number2.getWagerIdentification()))
-                return 1;
-            if (Long.parseLong(number1.getWagerIdentification()) < Long.parseLong(number2.getWagerIdentification()))
-                return -1;
-            return 0;
-        });
 
         ArrayList<String> allSeqs = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
 
-        for (WagerBoardMarks aSeq : seq) {
+        // populate array of played combinations.
+        for (StoreDbEnt aSeq : seq) {
 
             sb.append(aSeq.getMarkNumber()).append(" ");
 
+            // each combination is 7 digits.
             if (aSeq.getMarkSequenceNumber() == 7) {
                 String newSeq = sb.toString();
                 allSeqs.add(newSeq);
 
-                // reset stringBuilder
+                // reset string builder
                 sb.setLength(0);
             }
         }
 
         // check for duplicates in board sequences
-        for (String number : allSeqs) {
-            int frequency = Collections.frequency(allSeqs, number);
+        ArrayList<String> combinationDubs = new ArrayList<>();
+        for (String combination : allSeqs) {
+            int frequency = Collections.frequency(allSeqs, combination);
 
             if (frequency > 1) {
                 noDups = false;
-                System.out.println(number + " is repeat " + frequency + " times");
+                combinationDubs.add(combination);
+                System.out.println(combination + " is repeat " + frequency + " times");
             }
         }
 
-        return noDups;
+        return new BoardSeqTestResult(noDups, combinationDubs);
     }
 }

@@ -16,4 +16,7 @@ public interface StoreDbEntRepo extends JpaRepository<StoreDbEnt, String> {
     @Query("select max (sd.insertedDate) from StoreDbEnt sd ")
     Date findNewestDate();
 
+    @Query("select sd from StoreDbEnt sd where sd.insertedDate between ?1 and ?2")
+    List<StoreDbEnt> findWeekOld(Date fromDate, Date toDate);
+
 }

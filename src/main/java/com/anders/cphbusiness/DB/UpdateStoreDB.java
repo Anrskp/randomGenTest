@@ -4,7 +4,6 @@ import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
 import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardRepo;
 import com.anders.cphbusiness.Repositories.secondaryRepo.StoreDbEntRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -20,10 +19,10 @@ public class UpdateStoreDB {
 
     @Autowired
     private StoreDbEntRepo storeRepo;
-
+    /*
     @Scheduled(fixedRate = 600000) // ~ 600k milli sec = 10min.
     public void update() {
-        /*
+
         Date getFromDate = storeRepo.findNewestDate();
         List<Object[]> testInput;
 
@@ -60,6 +59,7 @@ public class UpdateStoreDB {
                 e.printStackTrace();
             }
         }
-*/
+
     }
+*/
 }

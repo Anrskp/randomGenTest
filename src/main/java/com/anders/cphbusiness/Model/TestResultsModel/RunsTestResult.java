@@ -5,15 +5,16 @@ import lombok.Getter;
 @Getter
 public class RunsTestResult {
 
+    boolean testPassed;
     private float u;
     private double z;
     private double o;
-    boolean testConclusion;
 
-    public RunsTestResult(float u, double z, double o, boolean testConclusion) {
+
+    public RunsTestResult(boolean testPassed, float u, double z, double o) {
+        this.testPassed = testPassed;
         this.u = u;
         this.z = z;
         this.o = o;
-        this.testConclusion = testConclusion;
     }
 }
