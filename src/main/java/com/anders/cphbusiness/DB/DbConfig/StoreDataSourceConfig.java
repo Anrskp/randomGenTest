@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = "com.anders.cphbusiness.Repositories.secondaryRepo",
+        basePackages = "com.anders.cphbusiness.Repositories.SecondaryRepo",
         entityManagerFactoryRef = "secondaryEM",
         transactionManagerRef = "secondaryTM")
 

@@ -1,8 +1,7 @@
-package com.anders.cphbusiness.Model.TestModel;
+package com.anders.cphbusiness.RandomnessTests.TestModel;
 
-import com.anders.cphbusiness.Model.PrimaryModel.WagerBoardMarks;
 import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
-import com.anders.cphbusiness.Model.TestResultsModel.BoardSeqTestResult;
+import com.anders.cphbusiness.RandomnessTests.TestResultsModel.BoardSeqTestResult;
 
 import java.util.ArrayList;
 import java.util.Collections;

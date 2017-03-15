@@ -1,4 +1,4 @@
-package com.anders.cphbusiness.Repositories.primaryRepo;
+package com.anders.cphbusiness.Repositories.PrimaryRepo;
 
 import com.anders.cphbusiness.Model.PrimaryModel.PoolgameTransaction;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package com.anders.cphbusiness.Repositories.secondaryRepo;
+package com.anders.cphbusiness.Repositories.SecondaryRepo;
 
 import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
 import org.springframework.data.jpa.repository.JpaRepository;

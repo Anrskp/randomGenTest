@@ -1,12 +1,12 @@
 package com.anders.cphbusiness.Controller;
 
 import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
-import com.anders.cphbusiness.Model.TestResultsModel.*;
-import com.anders.cphbusiness.Repositories.secondaryRepo.StoreDbEntRepo;
+import com.anders.cphbusiness.RandomnessTests.TestResultsModel.*;
+import com.anders.cphbusiness.Repositories.SecondaryRepo.StoreDbEntRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
-import com.anders.cphbusiness.Model.TestResultsModel.JsonResponseTest;
+import com.anders.cphbusiness.RandomnessTests.TestResultsModel.JsonResponseTest;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,17 +29,20 @@ public class RestControllerTest {
     @ResponseBody
     JsonResponseTest rngCheck() {
 
+        /////
         int daysEarlier = 2;
 
         Date dataFromDate = new Date();
         Date dataToDate = new Date(dataFromDate.getTime() - TimeUnit.DAYS.toMillis(daysEarlier));
 
         System.out.println(storeRepo.findWeekOld(dataToDate, dataFromDate));
+        /////
 
         ArrayList<Integer> randomNumbers = new ArrayList<>();
         ArrayList<StoreDbEnt> storeDbEnts = new ArrayList<>();
         ArrayList<java.util.Date> dates = new ArrayList<>();
 
+        // sort into devices. (mobile, offline, web)
         List<StoreDbEnt> data = storeRepo.findAll(new Sort("WagerIdentification", "boardNumber", "markSequenceNumber"));
         for (StoreDbEnt aData : data) {
             randomNumbers.add(aData.getMarkNumber());

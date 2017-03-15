@@ -1,11 +1,10 @@
 package com.anders.cphbusiness.Controller;
 
-import com.anders.cphbusiness.Model.PrimaryModel.WagerBoardMarks;
 import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
-import com.anders.cphbusiness.Model.TestResultsModel.BoardSeqTestResult;
-import com.anders.cphbusiness.Model.TestResultsModel.OccuTestResult;
-import com.anders.cphbusiness.Model.TestResultsModel.RunsTestResult;
-import com.anders.cphbusiness.Model.TestModel.*;
+import com.anders.cphbusiness.RandomnessTests.TestResultsModel.BoardSeqTestResult;
+import com.anders.cphbusiness.RandomnessTests.TestResultsModel.OccuTestResult;
+import com.anders.cphbusiness.RandomnessTests.TestResultsModel.RunsTestResult;
+import com.anders.cphbusiness.RandomnessTests.TestModel.*;
 
 import java.util.ArrayList;
 

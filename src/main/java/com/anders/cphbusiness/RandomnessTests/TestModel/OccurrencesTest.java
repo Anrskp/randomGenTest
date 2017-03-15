@@ -1,7 +1,7 @@
-package com.anders.cphbusiness.Model.TestModel;
+package com.anders.cphbusiness.RandomnessTests.TestModel;
 
-import com.anders.cphbusiness.Model.TestResultsModel.NumbersInfo;
-import com.anders.cphbusiness.Model.TestResultsModel.OccuTestResult;
+import com.anders.cphbusiness.RandomnessTests.numberInfo.NumbersInfo;
+import com.anders.cphbusiness.RandomnessTests.TestResultsModel.OccuTestResult;
 
 import java.util.ArrayList;
 import java.util.Collections;

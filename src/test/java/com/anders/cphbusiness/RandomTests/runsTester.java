@@ -1,7 +1,7 @@
-package com.anders.cphbusiness;
+package com.anders.cphbusiness.RandomTests;
 
 import com.anders.cphbusiness.Controller.RandomTestController;
-import com.anders.cphbusiness.Model.TestModel.RunsTest;
+import com.anders.cphbusiness.RandomnessTests.TestModel.RunsTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +41,7 @@ public class runsTester {
             testArray.add((int) testString.charAt(i) - '0'); // - '0' to convert unicode to western digits
         }
 
-        assertThat(rtc.runsTest(testArray).isTestConclusion()).isEqualTo(false);
+        assertThat(rtc.runsTest(testArray).isTestPassed()).isEqualTo(false);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class runsTester {
             testArray.add((int) testString.charAt(i) - '0'); // - '0' to convert unicode to western digits
         }
 
-        assertThat(rt.runsTester(testArray).isTestConclusion()).isEqualTo(true);
+        assertThat(rt.runsTester(testArray).isTestPassed()).isEqualTo(true);
         assertThat(rt.runsTester(testArray).getU()).isEqualTo(48.073685f);
         assertThat(rt.runsTester(testArray).getO()).isEqualTo(4.803431908034695);
         assertThat(rt.runsTester(testArray).getZ()).isEqualTo(-0.43170898059659435);

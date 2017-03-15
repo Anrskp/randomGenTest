@@ -1,8 +1,8 @@
 package com.anders.cphbusiness.DB;
 
 import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
-import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardRepo;
-import com.anders.cphbusiness.Repositories.secondaryRepo.StoreDbEntRepo;
+import com.anders.cphbusiness.Repositories.PrimaryRepo.WagerBoardRepo;
+import com.anders.cphbusiness.Repositories.SecondaryRepo.StoreDbEntRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class UpdateStoreDB {
@@ -19,7 +20,7 @@ public class UpdateStoreDB {
 
     @Autowired
     private StoreDbEntRepo storeRepo;
-    /*
+
     @Scheduled(fixedRate = 600000) // ~ 600k milli sec = 10min.
     public void update() {
 
@@ -43,23 +44,37 @@ public class UpdateStoreDB {
                 saveInput.add(newEnt);
             }
 
+            long startTime = System.currentTimeMillis();
 
             try {
                 System.out.println("fetching data from ADA to storeDB");
                 if (saveInput.size() == 0) {
                     System.out.println("ADA was empty!");
                 } else {
-                    storeRepo.save(saveInput);
-                }
+                    //storeRepo.save(saveInput);
+                    /*
+                    int batchSize = 20;
+                    for (int i = 0; i < saveInput.size(); i++) {
+                        storeRepo.save(saveInput.get(i));
 
-                // sort in repo select example.
-                //System.out.println(storeRepo.findAll(new Sort("WagerIdentification", "boardNumber", "markSequenceNumber")));
+                        if (i % batchSize == 0 && i > 0) {
+                            storeRepo.flush();
+                        }
+                    }
+                    */
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            long endTime = System.currentTimeMillis();
+            long difference = endTime - startTime;
+
+            System.out.println((float) TimeUnit.MILLISECONDS.toMinutes(difference) + " minutes");
+            System.out.println(difference + " milliseconds");
         }
 
     }
-*/
+
 }

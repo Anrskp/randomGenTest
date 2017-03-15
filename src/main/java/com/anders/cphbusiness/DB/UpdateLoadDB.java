@@ -4,9 +4,9 @@ package com.anders.cphbusiness.DB;
 import com.anders.cphbusiness.Model.PrimaryModel.PoolgameTransaction;
 import com.anders.cphbusiness.Model.PrimaryModel.WagerBoard;
 import com.anders.cphbusiness.Model.PrimaryModel.WagerBoardMarks;
-import com.anders.cphbusiness.Repositories.primaryRepo.PoolgameTransactionRepo;
-import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardMarksRepo;
-import com.anders.cphbusiness.Repositories.primaryRepo.WagerBoardRepo;
+import com.anders.cphbusiness.Repositories.PrimaryRepo.PoolgameTransactionRepo;
+import com.anders.cphbusiness.Repositories.PrimaryRepo.WagerBoardMarksRepo;
+import com.anders.cphbusiness.Repositories.PrimaryRepo.WagerBoardRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -242,7 +242,7 @@ public class UpdateLoadDB {
         long endTime = System.currentTimeMillis();
         long difference = endTime - startTime;
 
-        System.out.println(TimeUnit.MILLISECONDS.toMinutes(difference) + " minutes");
+        System.out.println((float) TimeUnit.MILLISECONDS.toMinutes(difference) + " minutes");
         System.out.println(difference + " milliseconds");
 
         poolgameTransactionList.clear();
