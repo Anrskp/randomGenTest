@@ -1,7 +1,7 @@
 package com.anders.cphbusiness.RandomnessTests.TestModel;
 
-import com.anders.cphbusiness.RandomnessTests.numberInfo.NumbersInfo;
 import com.anders.cphbusiness.RandomnessTests.TestResultsModel.OccuTestResult;
+import com.anders.cphbusiness.RandomnessTests.numberInfo.NumbersInfo;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +9,6 @@ import java.util.Collections;
 public class OccurrencesTest {
 
     // FIELDS
-    private boolean testAccepted = true;
     private ArrayList<NumbersInfo> numbersInfoList = new ArrayList<>();
 
     // CONSTRUCTOR
@@ -18,6 +17,7 @@ public class OccurrencesTest {
 
     // METHODS
     public OccuTestResult occurrencesTester(ArrayList<Integer> rngNumbers) {
+        boolean testAccepted = true;
         Collections.sort(rngNumbers);
 
         // find occurrences of each number
@@ -27,10 +27,7 @@ public class OccurrencesTest {
             int frequency = Collections.frequency(rngNumbers, i);
 
             NumbersInfo currentNumber = new NumbersInfo(i, frequency);
-
-            if (frequency > 0) {
-                numbersInfoList.add(currentNumber);
-            }
+            numbersInfoList.add(currentNumber);
         }
 
         // average occurrences
@@ -54,12 +51,12 @@ public class OccurrencesTest {
 
         // set percent deviation
         for (NumbersInfo NumbersInfo : numbersInfoList) {
+
             int number = NumbersInfo.getNumber();
             int occurrenceValue = NumbersInfo.getOccurrences();
 
             float res = (float) (occurrenceValue - average) / (average) * 100;
             NumbersInfo.setPercentagesFromAverage(res);
-
 
             int maxPercentDeviationAccepted = 200;
             if (res > maxPercentDeviationAccepted || res < -maxPercentDeviationAccepted) {
@@ -67,17 +64,18 @@ public class OccurrencesTest {
             }
         }
 
+        // get highest and lowest number occurrences
         ArrayList<NumbersInfo> lowest = new ArrayList<>();
         ArrayList<NumbersInfo> highest = new ArrayList<>();
 
-        // get highest and lowest number occurrences
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             lowest.add(numbersInfoList.get(i));
-            highest.add(numbersInfoList.get(numbersInfoList.size() - (i+1)));
+            highest.add(numbersInfoList.get(numbersInfoList.size() - (i + 1)));
         }
 
-        OccuTestResult occuTestRes = new OccuTestResult(testAccepted, highest, lowest);
+        OccuTestResult occuTestRes = new OccuTestResult(testAccepted, average, highest, lowest);
 
+        numbersInfoList.clear();
         return occuTestRes;
     }
 }

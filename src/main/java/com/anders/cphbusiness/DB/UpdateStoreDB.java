@@ -1,8 +1,8 @@
 package com.anders.cphbusiness.DB;
 
 import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
-import com.anders.cphbusiness.Repositories.PrimaryRepo.WagerBoardRepo;
-import com.anders.cphbusiness.Repositories.SecondaryRepo.StoreDbEntRepo;
+import com.anders.cphbusiness.Model.Repositories.PrimaryRepo.WagerBoardRepo;
+import com.anders.cphbusiness.Model.Repositories.SecondaryRepo.StoreDbEntRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -60,8 +60,9 @@ public class UpdateStoreDB {
                         if (i % batchSize == 0 && i > 0) {
                             storeRepo.flush();
                         }
+
                     }
-                    */
+*/
                 }
 
             } catch (Exception e) {

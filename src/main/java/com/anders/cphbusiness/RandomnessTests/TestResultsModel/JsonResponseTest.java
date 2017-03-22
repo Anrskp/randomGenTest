@@ -9,17 +9,12 @@ import java.util.Date;
 @Setter
 public class JsonResponseTest {
 
-    boolean allTestPassed;
-    Date fromDate;
-    Date toDate;
     RunsTestResult runsTest;
     OccuTestResult occuTest;
     BoardSeqTestResult boardSeqTest;
 
-    public JsonResponseTest(boolean allTestPassed, Date fromDate, Date toDate, RunsTestResult runsTest, OccuTestResult occuTest, BoardSeqTestResult boardSeqTest) {
-        this.allTestPassed = allTestPassed;
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+    public JsonResponseTest(RunsTestResult runsTest, OccuTestResult occuTest, BoardSeqTestResult boardSeqTest) {
+
         this.runsTest = runsTest;
         this.occuTest = occuTest;
         this.boardSeqTest = boardSeqTest;
@@ -28,10 +23,7 @@ public class JsonResponseTest {
     @Override
     public String toString() {
         return "JsonResponseTest{" +
-                "allTestPassed=" + allTestPassed +
-                ", fromDate=" + fromDate +
-                ", toDate=" + toDate +
-                ", runsTest=" + runsTest +
+                "runsTest=" + runsTest +
                 ", occuTest=" + occuTest +
                 ", boardSeqTest=" + boardSeqTest +
                 '}';

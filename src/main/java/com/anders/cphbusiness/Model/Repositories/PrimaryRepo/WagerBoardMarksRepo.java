@@ -1,4 +1,4 @@
-package com.anders.cphbusiness.Repositories.PrimaryRepo;
+package com.anders.cphbusiness.Model.Repositories.PrimaryRepo;
 
 import com.anders.cphbusiness.Model.PrimaryModel.WagerBoardMarks;
 import org.springframework.data.jpa.repository.JpaRepository;

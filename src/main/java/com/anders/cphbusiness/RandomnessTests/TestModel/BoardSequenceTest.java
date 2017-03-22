@@ -5,6 +5,7 @@ import com.anders.cphbusiness.RandomnessTests.TestResultsModel.BoardSeqTestResul
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class BoardSequenceTest {
 
@@ -15,7 +16,7 @@ public class BoardSequenceTest {
     }
 
     //METHODS
-    public BoardSeqTestResult checkBoardDups(ArrayList<StoreDbEnt> seq) {
+    public BoardSeqTestResult checkBoardDups(List<StoreDbEnt> seq) {
         boolean noDups = true;
 
         ArrayList<String> allSeqs = new ArrayList<>();
@@ -47,6 +48,8 @@ public class BoardSequenceTest {
                 System.out.println(combination + " is repeat " + frequency + " times");
             }
         }
+
+        allSeqs.clear();
 
         return new BoardSeqTestResult(noDups, combinationDubs);
     }

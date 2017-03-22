@@ -2,14 +2,15 @@ package com.anders.cphbusiness.Controller;
 
 import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
 import com.anders.cphbusiness.RandomnessTests.TestResultsModel.*;
-import com.anders.cphbusiness.Repositories.SecondaryRepo.StoreDbEntRepo;
+import com.anders.cphbusiness.RandomnessTests.numberInfo.NumbersInfo;
+import com.anders.cphbusiness.Model.Repositories.SecondaryRepo.StoreDbEntRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.*;
-import com.anders.cphbusiness.RandomnessTests.TestResultsModel.JsonResponseTest;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -27,54 +28,73 @@ public class RestControllerTest {
     @RequestMapping(value = "/rngCheck", method = RequestMethod.GET)
     public
     @ResponseBody
-    JsonResponseTest rngCheck() {
+    JsonResponseFinale rngCheck() {
 
-        /////
-        int daysEarlier = 2;
+        // fields
+        ArrayList<Integer> webMarkNumbers = new ArrayList<>();
+        ArrayList<Integer> mobileMarkNumbers = new ArrayList<>();
+        ArrayList<Integer> offlineMarkNumbers = new ArrayList<>();
 
-        Date dataFromDate = new Date();
-        Date dataToDate = new Date(dataFromDate.getTime() - TimeUnit.DAYS.toMillis(daysEarlier));
+        // Sample date range
+        int daysEarlier = 7;
+        Date dataToDate = new Date();
+        Date dataFromDate = new Date(dataToDate.getTime() - TimeUnit.DAYS.toMillis(daysEarlier));
 
-        System.out.println(storeRepo.findWeekOld(dataToDate, dataFromDate));
-        /////
+        List<StoreDbEnt> webData = storeRepo.findWeekOld(dataFromDate, dataToDate, "web");
+        List<StoreDbEnt> mobileData = storeRepo.findWeekOld(dataFromDate, dataToDate, "mobile");
+        List<StoreDbEnt> offlineData = storeRepo.findWeekOld(dataFromDate, dataToDate, "offline");
 
-        ArrayList<Integer> randomNumbers = new ArrayList<>();
-        ArrayList<StoreDbEnt> storeDbEnts = new ArrayList<>();
-        ArrayList<java.util.Date> dates = new ArrayList<>();
 
-        // sort into devices. (mobile, offline, web)
-        List<StoreDbEnt> data = storeRepo.findAll(new Sort("WagerIdentification", "boardNumber", "markSequenceNumber"));
-        for (StoreDbEnt aData : data) {
-            randomNumbers.add(aData.getMarkNumber());
-            dates.add(aData.getInsertedDate());
-            storeDbEnts.add(aData);
+        // WEB DATA
+        for (StoreDbEnt aData : webData) {
+            webMarkNumbers.add(aData.getMarkNumber());
         }
 
-        System.out.println(storeDbEnts.size());
+        RunsTestResult webRun = testCtrl.runsTest(webMarkNumbers);
+        OccuTestResult webOccu = testCtrl.occurrencesTest(webMarkNumbers);
+        BoardSeqTestResult webSeq = testCtrl.boardSeqTest(webData);
 
-        // get sample from-to dates
-        Collections.sort(dates);
-        Date fromDate = dates.get(0);
-        Date toDate = dates.get(dates.size() - 1);
+        JsonResponseTest webResults = new JsonResponseTest(webRun, webOccu, webSeq);
 
-        RunsTestResult runsTest = testCtrl.runsTest(randomNumbers);
-        OccuTestResult occurrencesTest = testCtrl.occurrencesTest(randomNumbers);
-        BoardSeqTestResult combinationDuplicateTest = testCtrl.boardSeqTest(storeDbEnts);
+        // MOBILE DATA
+        for (StoreDbEnt aData : mobileData) {
+            mobileMarkNumbers.add(aData.getMarkNumber());
+        }
 
-        boolean allTestPassed = runsTest.isTestPassed() && occurrencesTest.isTestPassed() && combinationDuplicateTest.isTestPassed();
+        RunsTestResult mobileRun = testCtrl.runsTest(mobileMarkNumbers);
+        OccuTestResult mobileOccu = testCtrl.occurrencesTest(mobileMarkNumbers);
+        BoardSeqTestResult mobileSeq = testCtrl.boardSeqTest(mobileData);
 
-        return new JsonResponseTest(allTestPassed, fromDate, toDate, runsTest, occurrencesTest, combinationDuplicateTest);
+        JsonResponseTest mobileResults = new JsonResponseTest(mobileRun, mobileOccu, mobileSeq);
 
+        // OFFLINE DATA
+        for (StoreDbEnt aData : offlineData) {
+            offlineMarkNumbers.add(aData.getMarkNumber());
+        }
+
+        RunsTestResult offlineRun = testCtrl.runsTest(offlineMarkNumbers);
+        OccuTestResult offlineOccu = testCtrl.occurrencesTest(offlineMarkNumbers);
+        BoardSeqTestResult offlineSeq = testCtrl.boardSeqTest(offlineData);
+
+        JsonResponseTest offlineResults = new JsonResponseTest(offlineRun, offlineOccu, offlineSeq);
+
+
+        // JSON RESPONSE
+        return new JsonResponseFinale(dataFromDate, dataToDate, webResults, mobileResults, offlineResults);
     }
 
-
-    // test request params
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String testThis(
-            @RequestParam(value = "startDate", defaultValue = "none selected") String startDate,
-            @RequestParam(value = "endDate", defaultValue = "none selected") String endDate,
-            @RequestParam(value = "device", defaultValue = "none selected") String device) {
-
-        return "startDate : " + startDate + " endDate : " + endDate + " device : " + device;
+    // Static occurrence data
+    @RequestMapping(value = "/staticData", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    ArrayList<NumbersInfo> staticData() {
+        List<StoreDbEnt> data = storeRepo.findAll();
+        ArrayList<Integer> markNumbers = new ArrayList<>();
+        for (StoreDbEnt aData : data) {
+            markNumbers.add(aData.getMarkNumber());
+        }
+        // JSON RESPONSE
+        return testCtrl.staticOccuData(markNumbers);
     }
+
 }

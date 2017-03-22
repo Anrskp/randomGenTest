@@ -4,9 +4,9 @@ package com.anders.cphbusiness.DB;
 import com.anders.cphbusiness.Model.PrimaryModel.PoolgameTransaction;
 import com.anders.cphbusiness.Model.PrimaryModel.WagerBoard;
 import com.anders.cphbusiness.Model.PrimaryModel.WagerBoardMarks;
-import com.anders.cphbusiness.Repositories.PrimaryRepo.PoolgameTransactionRepo;
-import com.anders.cphbusiness.Repositories.PrimaryRepo.WagerBoardMarksRepo;
-import com.anders.cphbusiness.Repositories.PrimaryRepo.WagerBoardRepo;
+import com.anders.cphbusiness.Model.Repositories.PrimaryRepo.PoolgameTransactionRepo;
+import com.anders.cphbusiness.Model.Repositories.PrimaryRepo.WagerBoardMarksRepo;
+import com.anders.cphbusiness.Model.Repositories.PrimaryRepo.WagerBoardRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,6 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class UpdateLoadDB {
-
 
     @Autowired
     PoolgameTransactionRepo PGTrepo;
@@ -38,7 +37,10 @@ public class UpdateLoadDB {
 
     private static Random randomNumber = new Random();
     private SecureRandom random = new SecureRandom();
-    private Date dateToInsert = new Date();
+
+    // first date to insert (8days earlier for testing purpose)
+    private Date currentTime = new Date();
+    private Date dateToInsert = new Date(currentTime.getTime() - TimeUnit.DAYS.toMillis(8));
 
     private String insertSalesChannel(int a) {
         String res = "";
@@ -72,7 +74,6 @@ public class UpdateLoadDB {
         int salesChannel = 1;
         // POOL GAME TRANSACTIONS
         for (int i = 1; i < 11; i++) {
-
 
             String randomID = nextSessionId();
             int currentBoardNumber = 1;
@@ -145,7 +146,6 @@ public class UpdateLoadDB {
 
             // WAGER BOARD
             for (int j = 1; j < 11; j++) {
-
 
                 String WB_meta_transactionID = randomID;
                 String WB_meta_sequenceID = null;
@@ -220,7 +220,7 @@ public class UpdateLoadDB {
 
     @Scheduled(fixedRate = 600000)
     public void generateData() {
-        /*
+    /*
         // get date from last point if any. default is current day and time.
         Date newestDate = WBrepo.findMaxDate();
         if (newestDate != null) {
@@ -245,10 +245,11 @@ public class UpdateLoadDB {
         System.out.println((float) TimeUnit.MILLISECONDS.toMinutes(difference) + " minutes");
         System.out.println(difference + " milliseconds");
 
+
         poolgameTransactionList.clear();
         wagerBoardsList.clear();
         wagerBoardMarksList.clear();
-        */
+*/
     }
 
 }
