@@ -51,7 +51,7 @@ public class UpdateStoreDB {
                 if (saveInput.size() == 0) {
                     System.out.println("ADA was empty!");
                 } else {
-                    storeRepo.save(saveInput);
+                    //storeRepo.save(saveInput);
 
                     // Batch insert
                     /*

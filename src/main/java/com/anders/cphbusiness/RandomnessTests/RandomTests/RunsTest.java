@@ -83,9 +83,9 @@ public class RunsTest {
 
         // conclusion from rejection region ( a = .05, rejection region = a / 2 = 0.025 = -1.96 ~ 1.96 )
         if (z > -1.96 && z < 1.96) {
-            return new RunsTestResult(true, u, z, o);
+            return new RunsTestResult(true, z);
         } else {
-            return new RunsTestResult(false, u, z, o);
+            return new RunsTestResult(false, z);
         }
     }
 }
