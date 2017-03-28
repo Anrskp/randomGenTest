@@ -1,6 +1,6 @@
-package com.anders.cphbusiness.RandomnessTests.TestModel;
+package com.anders.cphbusiness.RandomnessTests.RandomTests;
 
-import com.anders.cphbusiness.RandomnessTests.TestResultsModel.RunsTestResult;
+import com.anders.cphbusiness.RandomnessTests.TestResults.RunsTestResult;
 import lombok.Getter;
 
 import java.util.ArrayList;

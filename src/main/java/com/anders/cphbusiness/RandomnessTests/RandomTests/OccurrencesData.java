@@ -1,14 +1,14 @@
-package com.anders.cphbusiness.RandomnessTests.TestModel;
+package com.anders.cphbusiness.RandomnessTests.RandomTests;
 
 import com.anders.cphbusiness.RandomnessTests.numberInfo.NumbersInfo;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class OccurrencesStaticData {
+public class OccurrencesData {
 
     // constructor
-    public OccurrencesStaticData() {
+    public OccurrencesData() {
     }
 
     // methods

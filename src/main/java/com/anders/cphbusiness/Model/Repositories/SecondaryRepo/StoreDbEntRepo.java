@@ -19,4 +19,6 @@ public interface StoreDbEntRepo extends JpaRepository<StoreDbEnt, String> {
     @Query("select sd from StoreDbEnt sd where sd.insertedDate between ?1 and ?2 and sd.salesChannel = ?3 order by sd.insertedDate, sd.wagerIdentification, sd.boardNumber, sd.markSequenceNumber")
     List<StoreDbEnt> findWeekOld(Date fromDate, Date toDate, String salesChannel);
 
+    @Query("select sd from StoreDbEnt sd where sd.wagerIdentification = ?1")
+    List<StoreDbEnt> findByWagerID(String wagerID);
 }

@@ -1,7 +1,7 @@
 package com.anders.cphbusiness.Controller;
 
 import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
-import com.anders.cphbusiness.RandomnessTests.TestResultsModel.*;
+import com.anders.cphbusiness.RandomnessTests.TestResults.*;
 import com.anders.cphbusiness.RandomnessTests.numberInfo.NumbersInfo;
 import com.anders.cphbusiness.Model.Repositories.SecondaryRepo.StoreDbEntRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +94,7 @@ public class RestControllerTest {
             markNumbers.add(aData.getMarkNumber());
         }
         // JSON RESPONSE
-        return testCtrl.staticOccuData(markNumbers);
+        return testCtrl.occurrencesData(markNumbers);
     }
 
 }

@@ -1,7 +1,7 @@
-package com.anders.cphbusiness.RandomnessTests.TestModel;
+package com.anders.cphbusiness.RandomnessTests.RandomTests;
 
 import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
-import com.anders.cphbusiness.RandomnessTests.TestResultsModel.BoardSeqTestResult;
+import com.anders.cphbusiness.RandomnessTests.TestResults.BoardSeqTestResult;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +25,7 @@ public class BoardSequenceTest {
         // populate array of played combinations.
         for (StoreDbEnt aSeq : seq) {
 
-            sb.append(aSeq.getMarkNumber()).append(" ");
+            sb.append(aSeq.getMarkNumber());//.append(" ");
 
             // each combination is 7 digits.
             if (aSeq.getMarkSequenceNumber() == 7) {
@@ -34,6 +34,8 @@ public class BoardSequenceTest {
 
                 // reset string builder
                 sb.setLength(0);
+            } else {
+                sb.append(" ");
             }
         }
 

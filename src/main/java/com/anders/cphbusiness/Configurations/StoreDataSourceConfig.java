@@ -1,4 +1,4 @@
-package com.anders.cphbusiness.DB.DbConfig;
+package com.anders.cphbusiness.Configurations;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;

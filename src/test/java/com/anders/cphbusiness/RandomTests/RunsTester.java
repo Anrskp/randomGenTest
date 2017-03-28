@@ -1,7 +1,6 @@
 package com.anders.cphbusiness.RandomTests;
 
 import com.anders.cphbusiness.Controller.RandomTestController;
-import com.anders.cphbusiness.RandomnessTests.TestModel.RunsTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,12 +13,9 @@ import static org.assertj.core.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class runsTester {
+public class RunsTester {
 
-    // FIELDS
     RandomTestController rtc = new RandomTestController();
-    RunsTest rt = new RunsTest();
-
 
     @Before
     public void setUp() {
@@ -53,9 +49,9 @@ public class runsTester {
             testArray.add((int) testString.charAt(i) - '0'); // - '0' to convert unicode to western digits
         }
 
-        assertThat(rt.runsTester(testArray).isTestPassed()).isEqualTo(true);
-        assertThat(rt.runsTester(testArray).getU()).isEqualTo(48.073685f);
-        assertThat(rt.runsTester(testArray).getO()).isEqualTo(4.803431908034695);
-        assertThat(rt.runsTester(testArray).getZ()).isEqualTo(-0.43170898059659435);
+        assertThat(rtc.runsTest(testArray).isTestPassed()).isEqualTo(true);
+        assertThat(rtc.runsTest(testArray).getU()).isEqualTo(48.073685f);
+        assertThat(rtc.runsTest(testArray).getO()).isEqualTo(4.803431908034695);
+        assertThat(rtc.runsTest(testArray).getZ()).isEqualTo(-0.43170898059659435);
     }
 }

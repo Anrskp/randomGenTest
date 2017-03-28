@@ -1,4 +1,4 @@
-package com.anders.cphbusiness.DB;
+package com.anders.cphbusiness.DbSeeder;
 
 import com.anders.cphbusiness.Model.SecondaryModel.StoreDbEnt;
 import com.anders.cphbusiness.Model.Repositories.PrimaryRepo.WagerBoardRepo;
@@ -51,7 +51,9 @@ public class UpdateStoreDB {
                 if (saveInput.size() == 0) {
                     System.out.println("ADA was empty!");
                 } else {
-                    //storeRepo.save(saveInput);
+                    storeRepo.save(saveInput);
+
+                    // Batch insert
                     /*
                     int batchSize = 20;
                     for (int i = 0; i < saveInput.size(); i++) {

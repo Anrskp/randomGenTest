@@ -1,4 +1,4 @@
-package com.anders.cphbusiness.DB;
+package com.anders.cphbusiness.DbSeeder;
 
 
 import com.anders.cphbusiness.Model.PrimaryModel.PoolgameTransaction;
@@ -214,13 +214,13 @@ public class UpdateLoadDB {
                 salesChannel = 1;
             }
 
-            dateToInsert = new Date(dateToInsert.getTime() + TimeUnit.DAYS.toMillis(1));
+            dateToInsert = new Date(dateToInsert.getTime() + TimeUnit.HOURS.toMillis(4));
         }
     }
 
-    @Scheduled(fixedRate = 600000)
+    @Scheduled(fixedRate = 200000)
     public void generateData() {
-    /*
+        /*
         // get date from last point if any. default is current day and time.
         Date newestDate = WBrepo.findMaxDate();
         if (newestDate != null) {
@@ -249,7 +249,7 @@ public class UpdateLoadDB {
         poolgameTransactionList.clear();
         wagerBoardsList.clear();
         wagerBoardMarksList.clear();
-*/
+        */
     }
 
 }

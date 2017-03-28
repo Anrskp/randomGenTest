@@ -1,4 +1,4 @@
-package com.anders.cphbusiness.RandomnessTests.TestResultsModel;
+package com.anders.cphbusiness.RandomnessTests.TestResults;
 
 import lombok.Getter;
 
