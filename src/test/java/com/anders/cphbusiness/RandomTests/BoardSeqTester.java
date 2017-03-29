@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -69,7 +68,7 @@ public class BoardSeqTester {
         Date dataToDate = new Date();
         Date dataFromDate = new Date(dataToDate.getTime() - TimeUnit.DAYS.toMillis(daysEarlier));
 
-        List<StoreDbEnt> data = repo.findWeekOld(dataFromDate, dataToDate, "web");
+        List<StoreDbEnt> data = repo.findByDates(dataFromDate, dataToDate, "web");
 
         assertThat(rtc.boardSeqTest(data).isTestPassed()).isEqualTo(false);
         assertThat(rtc.boardSeqTest(data).getRepeatedSeqs().get(0)).isEqualTo("29 23 19 23 30 14 35");
@@ -77,7 +76,7 @@ public class BoardSeqTester {
         // clean up
         repo.delete(testData);
 
-        assertThat(rtc.boardSeqTest(repo.findWeekOld(dataFromDate, dataToDate, "web")).isTestPassed()).isEqualTo(true);
+        assertThat(rtc.boardSeqTest(repo.findByDates(dataFromDate, dataToDate, "web")).isTestPassed()).isEqualTo(true);
     }
 
 

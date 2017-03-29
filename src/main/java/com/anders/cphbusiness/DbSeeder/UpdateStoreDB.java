@@ -28,7 +28,7 @@ public class UpdateStoreDB {
         List<Object[]> testInput;
 
         if (getFromDate == null) {
-            testInput = loadRepoTest.findAllTest();
+            testInput = loadRepoTest.findAllPlayedNumbers();
         } else {
             testInput = loadRepoTest.findAllFromDate(getFromDate);
         }

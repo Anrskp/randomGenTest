@@ -40,9 +40,9 @@ public class RestControllerTest {
         Date dataToDate = new Date();
         Date dataFromDate = new Date(dataToDate.getTime() - TimeUnit.DAYS.toMillis(daysEarlier));
 
-        List<StoreDbEnt> webData = storeRepo.findWeekOld(dataFromDate, dataToDate, "web");
-        List<StoreDbEnt> mobileData = storeRepo.findWeekOld(dataFromDate, dataToDate, "mobile");
-        List<StoreDbEnt> offlineData = storeRepo.findWeekOld(dataFromDate, dataToDate, "offline");
+        List<StoreDbEnt> webData = storeRepo.findByDates(dataFromDate, dataToDate, "web");
+        List<StoreDbEnt> mobileData = storeRepo.findByDates(dataFromDate, dataToDate, "mobile");
+        List<StoreDbEnt> offlineData = storeRepo.findByDates(dataFromDate, dataToDate, "offline");
 
 
         // WEB DATA

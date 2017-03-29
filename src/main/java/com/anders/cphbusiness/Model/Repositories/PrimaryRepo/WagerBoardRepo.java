@@ -21,7 +21,7 @@ public interface WagerBoardRepo extends JpaRepository<WagerBoard, String> {
             "where wb.WagerIdentification = wm.WagerIdentification and wb.BoardNumber = wm.BoardNumber and wb.GameIdentification = wm.GameIdentification and wm.meta_IsCurrent = 1 " +
             "and wb.TransactionIdentification = pt.TransactionIdentification and pt.meta_IsCurrent = 1 " +
             "and (wb.meta_IsCurrent = 1) ")
-    List<Object[]> findAllTest();
+    List<Object[]> findAllPlayedNumbers();
 
 
     @Query(value = "select wm.WagerIdentification, wm.BoardNumber, wm.MarkSequenceNumber, wm.MarkNumber," +
