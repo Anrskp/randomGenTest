@@ -5,13 +5,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class JsonResponseTest {
+public class JsonResponseSalesChannel {
 
     RunsTestResult runsTest;
     OccuTestResult occuTest;
     BoardSeqTestResult boardSeqTest;
 
-    public JsonResponseTest(RunsTestResult runsTest, OccuTestResult occuTest, BoardSeqTestResult boardSeqTest) {
+    public JsonResponseSalesChannel(RunsTestResult runsTest, OccuTestResult occuTest, BoardSeqTestResult boardSeqTest) {
 
         this.runsTest = runsTest;
         this.occuTest = occuTest;
@@ -20,7 +20,7 @@ public class JsonResponseTest {
 
     @Override
     public String toString() {
-        return "JsonResponseTest{" +
+        return "JsonResponseSalesChannel{" +
                 "runsTest=" + runsTest +
                 ", occuTest=" + occuTest +
                 ", boardSeqTest=" + boardSeqTest +

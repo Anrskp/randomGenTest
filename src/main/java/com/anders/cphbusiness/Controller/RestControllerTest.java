@@ -28,7 +28,7 @@ public class RestControllerTest {
     @RequestMapping(value = "/rngCheck", method = RequestMethod.GET)
     public
     @ResponseBody
-    JsonResponseFinale rngCheck() {
+    JsonResponse rngCheck() {
 
         // fields
         ArrayList<Integer> webMarkNumbers = new ArrayList<>();
@@ -54,7 +54,7 @@ public class RestControllerTest {
         OccuTestResult webOccu = testCtrl.occurrencesTest(webMarkNumbers);
         BoardSeqTestResult webSeq = testCtrl.boardSeqTest(webData);
 
-        JsonResponseTest webResults = new JsonResponseTest(webRun, webOccu, webSeq);
+        JsonResponseSalesChannel webResults = new JsonResponseSalesChannel(webRun, webOccu, webSeq);
 
         // MOBILE DATA
         for (StoreDbEnt aData : mobileData) {
@@ -65,7 +65,7 @@ public class RestControllerTest {
         OccuTestResult mobileOccu = testCtrl.occurrencesTest(mobileMarkNumbers);
         BoardSeqTestResult mobileSeq = testCtrl.boardSeqTest(mobileData);
 
-        JsonResponseTest mobileResults = new JsonResponseTest(mobileRun, mobileOccu, mobileSeq);
+        JsonResponseSalesChannel mobileResults = new JsonResponseSalesChannel(mobileRun, mobileOccu, mobileSeq);
 
         // OFFLINE DATA
         for (StoreDbEnt aData : offlineData) {
@@ -76,11 +76,11 @@ public class RestControllerTest {
         OccuTestResult offlineOccu = testCtrl.occurrencesTest(offlineMarkNumbers);
         BoardSeqTestResult offlineSeq = testCtrl.boardSeqTest(offlineData);
 
-        JsonResponseTest offlineResults = new JsonResponseTest(offlineRun, offlineOccu, offlineSeq);
+        JsonResponseSalesChannel offlineResults = new JsonResponseSalesChannel(offlineRun, offlineOccu, offlineSeq);
 
 
         // JSON RESPONSE
-        return new JsonResponseFinale(dataFromDate, dataToDate, webResults, mobileResults, offlineResults);
+        return new JsonResponse(dataFromDate, dataToDate, webResults, mobileResults, offlineResults);
     }
 
     // Static occurrence data

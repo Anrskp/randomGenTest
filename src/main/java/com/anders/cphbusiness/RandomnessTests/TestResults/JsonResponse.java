@@ -5,15 +5,15 @@ import lombok.Getter;
 import java.util.Date;
 
 @Getter
-public class JsonResponseFinale {
+public class JsonResponse {
 
     Date fromDate;
     Date toDate;
-    JsonResponseTest web;
-    JsonResponseTest mobile;
-    JsonResponseTest offline;
+    JsonResponseSalesChannel web;
+    JsonResponseSalesChannel mobile;
+    JsonResponseSalesChannel offline;
 
-    public JsonResponseFinale(Date fromDate, Date toDate, JsonResponseTest web, JsonResponseTest mobile, JsonResponseTest offline) {
+    public JsonResponse(Date fromDate, Date toDate, JsonResponseSalesChannel web, JsonResponseSalesChannel mobile, JsonResponseSalesChannel offline) {
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.web = web;
