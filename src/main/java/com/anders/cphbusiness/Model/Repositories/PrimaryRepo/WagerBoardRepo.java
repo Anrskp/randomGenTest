@@ -18,7 +18,9 @@ public interface WagerBoardRepo extends JpaRepository<WagerBoard, String> {
             "from WagerBoard wb " +
             "inner join wb.listOfWagerMarks wm  " +
             "inner join wb.poolgameTransaction pt  " +
-            "where wb.WagerIdentification = wm.WagerIdentification and wb.BoardNumber = wm.BoardNumber and wb.GameIdentification = wm.GameIdentification and wm.meta_IsCurrent = 1 " +
+            "where wb.WagerIdentification = wm.WagerIdentification " +
+            "and wb.BoardNumber = wm.BoardNumber and wb.GameIdentification = wm.GameIdentification " +
+            "and wm.meta_IsCurrent = 1 " +
             "and wb.TransactionIdentification = pt.TransactionIdentification and pt.meta_IsCurrent = 1 " +
             "and (wb.meta_IsCurrent = 1) ")
     List<Object[]> findAllPlayedNumbers();
@@ -29,7 +31,8 @@ public interface WagerBoardRepo extends JpaRepository<WagerBoard, String> {
             "from WagerBoard wb " +
             "inner join wb.listOfWagerMarks wm  " +
             "inner join wb.poolgameTransaction pt  " +
-            "where wb.WagerIdentification = wm.WagerIdentification and wb.BoardNumber = wm.BoardNumber and wb.GameIdentification = wm.GameIdentification and wm.meta_IsCurrent = 1 " +
+            "where wb.WagerIdentification = wm.WagerIdentification and wb.BoardNumber = wm.BoardNumber " +
+            "and wb.GameIdentification = wm.GameIdentification and wm.meta_IsCurrent = 1 " +
             "and wb.TransactionIdentification = pt.TransactionIdentification and pt.meta_IsCurrent = 1 " +
             "and (wb.meta_IsCurrent = 1) and pt.meta_InsertedDate > ?1 ")
     List<Object[]> findAllFromDate(Date date);
