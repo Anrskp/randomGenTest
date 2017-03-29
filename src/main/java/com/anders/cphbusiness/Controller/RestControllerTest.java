@@ -84,7 +84,7 @@ public class RestControllerTest {
     }
 
     // Static occurrence data
-    @RequestMapping(value = "/staticData", method = RequestMethod.GET)
+    @RequestMapping(value = "/getNumbersInfo", method = RequestMethod.GET)
     public
     @ResponseBody
     ArrayList<NumbersInfo> staticData() {
@@ -93,6 +93,7 @@ public class RestControllerTest {
         for (StoreDbEnt aData : data) {
             markNumbers.add(aData.getMarkNumber());
         }
+
         // JSON RESPONSE
         return testCtrl.occurrencesData(markNumbers);
     }
